@@ -177,7 +177,7 @@ public class MainWindow
 		m_SP.setBounds(229, 0, 1045, 500);
 		m_SP.setAutoscrolls(true);
 
-		
+		//
 		JLabel m_Label_NomDuProjet = new JLabel("Name");
 		m_Label_NomDuProjet.setBounds(0, 0, 46, 14);
 		frame.getContentPane().add(m_Label_NomDuProjet);
