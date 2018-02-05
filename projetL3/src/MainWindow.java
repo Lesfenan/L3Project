@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JDesktopPane;
@@ -25,6 +27,8 @@ import java.awt.Font;
 import java.awt.Canvas;
 import java.awt.SystemColor;
 import java.awt.Cursor;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 // Main
 public class MainWindow 
 {
@@ -78,6 +82,19 @@ public class MainWindow
 		m_Pannel_ListeDesTaches.setBounds(0, 35, 229, 465);
 		frame.getContentPane().add(m_Pannel_ListeDesTaches);
 		
+		JList list = new JList();
+		list.setBounds(0, 0, 229, 465);
+		m_Pannel_ListeDesTaches.add(list);
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"UML", "Developpement", "Documentation"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		
 		JDesktopPane m_Pannel_Information = new JDesktopPane();
 		m_Pannel_Information.setBackground(Color.BLUE);
 		m_Pannel_Information.setBounds(0, 510, 1274, 160);
@@ -101,7 +118,7 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-
+				addJalon();
 			}
 		});
 		m_Menu_CreateProject.add(m_MenuItem_Nouveau);
@@ -126,22 +143,6 @@ public class MainWindow
 		m_Table_Frise.setSurrendersFocusOnKeystroke(true);
 		m_Table_Frise.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, "", "", "", "", "", "Salut", "", "", null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"Jalons", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Ao\u00FBt", "Septembre", "Octobre"
@@ -183,4 +184,12 @@ public class MainWindow
 		
 
 	}
+	public void addJalon()
+	{
+		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
+		Vector<String> test = new Vector<>();
+		test.add("test");
+		model.addRow(test);
+	}
 }
+	
