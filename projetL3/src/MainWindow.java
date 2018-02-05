@@ -25,7 +25,7 @@ import java.awt.Font;
 import java.awt.Canvas;
 import java.awt.SystemColor;
 import java.awt.Cursor;
-
+// Main
 public class MainWindow 
 {
 	private JScrollPane m_SP;
