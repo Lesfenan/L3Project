@@ -186,6 +186,8 @@ public class MainWindow
 		}
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
+		Authentification testAuth = new Authentification();
+		testAuth.show();
 	}
 }
 	
