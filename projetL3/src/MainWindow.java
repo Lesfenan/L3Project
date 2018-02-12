@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
@@ -14,10 +13,17 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -29,13 +35,17 @@ import java.awt.SystemColor;
 import java.awt.Cursor;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.JTree;
+import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
 // Main
 public class MainWindow 
 {
 	private JScrollPane m_SP;
-
+	private JScrollPane m_SP_Tree;
+	private JTree tree;
 	private JFrame frame;
 	private JTable m_Table_Frise;
+	private DefaultMutableTreeNode root;
 
 	/**
 	 * Launch the application.
@@ -80,20 +90,16 @@ public class MainWindow
 		JDesktopPane m_Pannel_ListeDesTaches = new JDesktopPane();
 		m_Pannel_ListeDesTaches.setBackground(Color.LIGHT_GRAY);
 		m_Pannel_ListeDesTaches.setBounds(0, 35, 229, 465);
-		frame.getContentPane().add(m_Pannel_ListeDesTaches);
 		
-		JList list = new JList();
-		list.setBounds(0, 0, 229, 465);
-		m_Pannel_ListeDesTaches.add(list);
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"UML", "Developpement", "Documentation"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		root = new DefaultMutableTreeNode("Jalons");
+		tree = new JTree(root);
+		tree.setShowsRootHandles(true);
+		tree.setBounds(0, 74, 229, 391);
+		
+		m_SP_Tree = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		frame.getContentPane().add(m_SP_Tree);
+		m_SP_Tree.setBounds(0, 35, 229, 465);
+		m_SP_Tree.setAutoscrolls(true);
 		
 		JDesktopPane m_Pannel_Information = new JDesktopPane();
 		m_Pannel_Information.setBackground(Color.BLUE);
@@ -143,31 +149,14 @@ public class MainWindow
 		m_Table_Frise.setSurrendersFocusOnKeystroke(true);
 		m_Table_Frise.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null},
 			},
 			new String[] {
-				"Jalons", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Ao\u00FBt", "Septembre", "Octobre"
+				"Projets", "Diagramme de classe - Date limite : 23/02/18"
 			}
 		));
-		m_Table_Frise.getColumnModel().getColumn(1).setPreferredWidth(250);
+		m_Table_Frise.getColumnModel().getColumn(0).setMinWidth(150);
 		m_Table_Frise.getColumnModel().getColumn(1).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(2).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(2).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(3).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(3).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(4).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(4).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(5).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(5).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(6).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(6).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(7).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(7).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(8).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(8).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(9).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(9).setMinWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(10).setPreferredWidth(250);
-		m_Table_Frise.getColumnModel().getColumn(10).setMinWidth(250);
 		m_Table_Frise.setBounds(0, 0, 1049, 500);
 		m_Table_Frise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		m_Pannel_Frise.add(m_Table_Frise);
@@ -190,6 +179,13 @@ public class MainWindow
 		Vector<String> test = new Vector<>();
 		test.add("test");
 		model.addRow(test);
+		for(int i = 0; i<10; i++)
+		{
+			DefaultMutableTreeNode jalons = new DefaultMutableTreeNode(new Random().nextInt(2000));
+			root.insert(jalons, root.getChildCount());
+		}
+		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
+		modelTree.reload();
 	}
 }
 	
