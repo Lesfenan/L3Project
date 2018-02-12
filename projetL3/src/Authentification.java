@@ -7,6 +7,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Authentification extends JFrame {
 
@@ -34,6 +37,7 @@ public class Authentification extends JFrame {
 	 * Create the frame.
 	 */
 	public Authentification() {
+		setResizable(false);
 		setTitle("Authentification");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -58,5 +62,21 @@ public class Authentification extends JFrame {
 		JLabel lblPassword = new JLabel("Mot de passe");
 		lblPassword.setBounds(81, 128, 82, 14);
 		contentPane.add(lblPassword);
+		
+		JButton btnConnection = new JButton("Connexion");
+		btnConnection.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				test();
+			}
+		});
+		btnConnection.setBounds(256, 180, 106, 23);
+		contentPane.add(btnConnection);
+	}
+	
+	public void test()
+	{
+		System.out.println(passwordField.getText());
 	}
 }
