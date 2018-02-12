@@ -96,7 +96,7 @@ public class MainWindow
 		tree.setShowsRootHandles(true);
 		tree.setBounds(0, 74, 229, 391);
 		
-		m_SP_Tree = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		m_SP_Tree = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(m_SP_Tree);
 		m_SP_Tree.setBounds(0, 35, 229, 465);
 		m_SP_Tree.setAutoscrolls(true);
