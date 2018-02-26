@@ -6,7 +6,7 @@ public class Rapport {
 	
 	public Rapport (int newID, String nomJalon ){
 		ID = newID;
-		titre = "Rapport "+ nomJalon;
+		setTitre("Rapport "+ nomJalon);
 	}
 	 /*
 	public void setTitre (String newTitre){
@@ -15,7 +15,35 @@ public class Rapport {
 	*/
 	
 	public void setDescritpion (String newDescritpion){
-		description = newDescritpion;
+		setDescription(newDescritpion);
+	}
+
+	/**
+	 * @return the titre
+	 */
+	public String getTitre() {
+		return titre;
+	}
+
+	/**
+	 * @param titre the titre to set
+	 */
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	
