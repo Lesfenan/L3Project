@@ -101,14 +101,17 @@ public class MainWindow
 		m_SP_Tree.setBounds(0, 35, 229, 465);
 		m_SP_Tree.setAutoscrolls(true);
 		
-		JDesktopPane m_Pannel_Information = new JDesktopPane();
-		m_Pannel_Information.setBackground(Color.BLUE);
-		m_Pannel_Information.setBounds(0, 510, 1274, 160);
-		frame.getContentPane().add(m_Pannel_Information);
+
+		
+		
+		JScrollPane m_scrollPanel_Information = new JScrollPane(); //////
+		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
+		m_scrollPanel_Information.setAutoscrolls(true);
+		frame.getContentPane().add(m_scrollPanel_Information);
 		
 		JLabel m_Label_Information = new JLabel("Informations");
 		m_Label_Information.setBounds(10, 11, 86, 14);
-		m_Pannel_Information.add(m_Label_Information);
+		m_scrollPanel_Information.add((m_Label_Information));
 		
 		JMenuBar m_MenuBar_Main = new JMenuBar();
 		frame.setJMenuBar(m_MenuBar_Main);
@@ -157,6 +160,12 @@ public class MainWindow
 		));
 		m_Table_Frise.getColumnModel().getColumn(0).setMinWidth(150);
 		m_Table_Frise.getColumnModel().getColumn(1).setMinWidth(250);
+		
+		JDesktopPane m_Pannel_Information = new JDesktopPane();
+		m_Pannel_Information.setBackground(Color.BLUE);
+		m_Pannel_Information.setBounds(0, 510, 1274, 160);
+		frame.getContentPane().add(m_Pannel_Information);
+		m_Pannel_Information.setLayout(null);
 		m_Table_Frise.setBounds(0, 0, 1049, 500);
 		m_Table_Frise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		m_Pannel_Frise.add(m_Table_Frise);
@@ -172,13 +181,18 @@ public class MainWindow
 		frame.getContentPane().add(m_Label_NomDuProjet);
 		
 
+		
+
 	}
 	public void addJalon()
 	{
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
 		Vector<String> test = new Vector<>();
 		test.add("test");
-		model.addRow(test);
+		
+		model.setValueAt("Jeanne, Kilian", 0, 0);
+		model.setValueAt("Envoyé", 0, 1);
+		
 		for(int i = 0; i<10; i++)
 		{
 			DefaultMutableTreeNode jalons = new DefaultMutableTreeNode(new Random().nextInt(2000));
@@ -186,8 +200,6 @@ public class MainWindow
 		}
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
-		Authentification testAuth = new Authentification();
-		testAuth.show();
 	}
 }
 	
