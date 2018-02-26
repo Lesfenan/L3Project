@@ -37,6 +37,7 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JTree;
 import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
+import javax.swing.JPanel;
 // Main
 public class MainWindow 
 {
@@ -47,6 +48,7 @@ public class MainWindow
 	private JTable m_Table_Frise;
 	private DefaultMutableTreeNode root;
 	private JScrollPane m_scrollPanel_Information;
+	private JPanel m_Pannel_Information;
 
 	/**
 	 * Launch the application.
@@ -102,18 +104,11 @@ public class MainWindow
 		m_SP_Tree.setBounds(0, 35, 229, 465);
 		m_SP_Tree.setAutoscrolls(true);
 		
-
-		
-		
-		m_scrollPanel_Information = new JScrollPane(); //////
-		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
+		m_scrollPanel_Information = new JScrollPane(m_Pannel_Information); //////
 		m_scrollPanel_Information.setAutoscrolls(true);
 		frame.getContentPane().add(m_scrollPanel_Information);
-		
-		JLabel m_Label_Information = new JLabel("Informations");
-		m_Label_Information.setBounds(10, 11, 86, 14);
-		m_scrollPanel_Information.add((m_Label_Information));
-		
+		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
+			
 		JMenuBar m_MenuBar_Main = new JMenuBar();
 		frame.setJMenuBar(m_MenuBar_Main);
 		
@@ -175,6 +170,14 @@ public class MainWindow
 		m_Label_NomDuProjet.setBounds(0, 0, 46, 14);
 		frame.getContentPane().add(m_Label_NomDuProjet);
 		
+		m_Pannel_Information = new JPanel();
+		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
+		m_Pannel_Information.setAutoscrolls(true);
+		m_scrollPanel_Information.add(m_Pannel_Information);
+		
+		JLabel m_Label_Information = new JLabel("Informations");
+		m_Label_Information.setBounds(10, 11, 86, 14);
+		m_Pannel_Information.add(m_Label_Information);
 
 		
 
