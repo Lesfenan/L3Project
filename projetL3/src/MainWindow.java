@@ -46,6 +46,7 @@ public class MainWindow
 	private JFrame frame;
 	private JTable m_Table_Frise;
 	private DefaultMutableTreeNode root;
+	private JScrollPane m_scrollPanel_Information;
 
 	/**
 	 * Launch the application.
@@ -104,7 +105,7 @@ public class MainWindow
 
 		
 		
-		JScrollPane m_scrollPanel_Information = new JScrollPane(); //////
+		m_scrollPanel_Information = new JScrollPane(); //////
 		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
 		m_scrollPanel_Information.setAutoscrolls(true);
 		frame.getContentPane().add(m_scrollPanel_Information);
@@ -160,12 +161,6 @@ public class MainWindow
 		));
 		m_Table_Frise.getColumnModel().getColumn(0).setMinWidth(150);
 		m_Table_Frise.getColumnModel().getColumn(1).setMinWidth(250);
-		
-		JDesktopPane m_Pannel_Information = new JDesktopPane();
-		m_Pannel_Information.setBackground(Color.BLUE);
-		m_Pannel_Information.setBounds(0, 510, 1274, 160);
-		frame.getContentPane().add(m_Pannel_Information);
-		m_Pannel_Information.setLayout(null);
 		m_Table_Frise.setBounds(0, 0, 1049, 500);
 		m_Table_Frise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		m_Pannel_Frise.add(m_Table_Frise);
