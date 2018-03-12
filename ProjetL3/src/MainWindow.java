@@ -109,7 +109,7 @@ public class MainWindow
 		
 		m_ContextMenu_AddJalon = new JPopupMenu();
 		addPopup(tree, m_ContextMenu_AddJalon);
-		m_ContextMenu_AddJalon.hide();
+		
 		
 		m_MenuItem_AddJalons = new JMenuItem("Ajouter Jalon");
 		m_ContextMenu_AddJalon.add(m_MenuItem_AddJalons);
@@ -120,7 +120,7 @@ public class MainWindow
 		
 		
 		m_Label_Information = new JLabel("Informations");
-		m_Label_Information.setBounds(10, 10, 61, 14);
+		m_Label_Information.setBounds(10, 10, 100, 14);
 		
 		m_Pannel_Information = new JPanel();
 		m_Pannel_Information.setBounds(0, 0, 1274, 171);
