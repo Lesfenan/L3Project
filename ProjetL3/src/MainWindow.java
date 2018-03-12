@@ -52,8 +52,8 @@ public class MainWindow
 	private JScrollPane m_scrollPanel_Information;
 	private JPanel m_Pannel_Information;
 	private JLabel m_Label_Information;
-	private JPopupMenu popupMenu;
-	private JMenuItem mntmInsrerJalon;
+	private JPopupMenu m_ContextMenu_AddJalon;
+	private JMenuItem m_MenuItem_AddJalons;
 
 	/**
 	 * Launch the application.
@@ -106,6 +106,13 @@ public class MainWindow
 		tree.setBounds(0, 74, 229, 391);
 		
 		m_SP_Tree = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		m_ContextMenu_AddJalon = new JPopupMenu();
+		addPopup(tree, m_ContextMenu_AddJalon);
+		m_ContextMenu_AddJalon.hide();
+		
+		m_MenuItem_AddJalons = new JMenuItem("Ajouter Jalon");
+		m_ContextMenu_AddJalon.add(m_MenuItem_AddJalons);
 		frame.getContentPane().add(m_SP_Tree);
 		m_SP_Tree.setBounds(0, 35, 229, 465);
 		m_SP_Tree.setAutoscrolls(true);
@@ -203,7 +210,7 @@ public class MainWindow
 		test.add("test");
 		
 		model.setValueAt("Jeanne, Kilian", 0, 0);
-		model.setValueAt("Envoyé", 0, 1);
+		model.setValueAt("EnvoyÃ©", 0, 1);
 		
 		for(int i = 0; i<10; i++)
 		{
@@ -213,6 +220,7 @@ public class MainWindow
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
 	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -228,6 +236,8 @@ public class MainWindow
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
+
+
 		});
 	}
 }
