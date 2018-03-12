@@ -10,6 +10,7 @@ public class Projet {
 	private Enseignant enseignant;
 	private ArrayList<Eleve> collectionEleves;
 	private ArrayList<Jalon> collectionJalons;
+	private String description;
 
 	
 	public Projet(String argSujet, Enseignant argEnseignant) {
@@ -61,6 +62,20 @@ public class Projet {
 	 */
 	public void setEnseignant(Enseignant enseignant) {
 		this.enseignant = enseignant;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	
