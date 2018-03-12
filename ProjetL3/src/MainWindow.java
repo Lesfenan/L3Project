@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.LayoutManager;
 import java.awt.Canvas;
 import java.awt.SystemColor;
@@ -151,7 +152,8 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-				addJalon();
+				NouveauProjet test = new NouveauProjet();
+				test.setVisible(true);
 			}
 		});
 		m_Menu_CreateProject.add(m_MenuItem_Nouveau);

@@ -63,7 +63,7 @@ public class NouveauProjet extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNomDuProjet = new JLabel("Nom du projet");
-		lblNomDuProjet.setBounds(10, 34, 79, 14);
+		lblNomDuProjet.setBounds(10, 34, 118, 14);
 		contentPane.add(lblNomDuProjet);
 		
 		JLabel lblNewLabel = new JLabel("Tuteur");
@@ -79,7 +79,7 @@ public class NouveauProjet extends JFrame {
 		contentPane.add(lblMotsCls);
 		
 		textField = new JTextField();
-		textField.setBounds(98, 31, 150, 20);
+		textField.setBounds(140, 31, 108, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
