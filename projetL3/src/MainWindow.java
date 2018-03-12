@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.awt.Canvas;
 import java.awt.SystemColor;
 import java.awt.Cursor;
@@ -37,6 +38,8 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JTree;
 import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 // Main
 public class MainWindow 
 {
@@ -47,6 +50,10 @@ public class MainWindow
 	private JTable m_Table_Frise;
 	private DefaultMutableTreeNode root;
 	private JScrollPane m_scrollPanel_Information;
+	private JPanel m_Pannel_Information;
+	private JLabel m_Label_Information;
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmInsrerJalon;
 
 	/**
 	 * Launch the application.
@@ -92,6 +99,7 @@ public class MainWindow
 		m_Pannel_ListeDesTaches.setBackground(Color.LIGHT_GRAY);
 		m_Pannel_ListeDesTaches.setBounds(0, 35, 229, 465);
 		
+		
 		root = new DefaultMutableTreeNode("Jalons");
 		tree = new JTree(root);
 		tree.setShowsRootHandles(true);
@@ -102,18 +110,26 @@ public class MainWindow
 		m_SP_Tree.setBounds(0, 35, 229, 465);
 		m_SP_Tree.setAutoscrolls(true);
 		
+		
+		
+		m_Label_Information = new JLabel("Informations");
+		m_Label_Information.setBounds(10, 10, 61, 14);
+		
+		m_Pannel_Information = new JPanel();
+		m_Pannel_Information.setBounds(0, 0, 1274, 171);
+		m_Pannel_Information.setLayout(null);
+		m_Pannel_Information.add(m_Label_Information);		
+		m_scrollPanel_Information = new JScrollPane(m_Pannel_Information,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); //////
+		frame.getContentPane().add(m_scrollPanel_Information);
+		m_scrollPanel_Information.setBounds(0, 499, 1274, 171);
+		m_scrollPanel_Information.setAutoscrolls(true);
+
 
 		
 		
-		m_scrollPanel_Information = new JScrollPane(); //////
-		m_scrollPanel_Information.setBounds(0, 510, 1274, 160);
-		m_scrollPanel_Information.setAutoscrolls(true);
-		frame.getContentPane().add(m_scrollPanel_Information);
-		
-		JLabel m_Label_Information = new JLabel("Informations");
-		m_Label_Information.setBounds(10, 11, 86, 14);
-		m_scrollPanel_Information.add((m_Label_Information));
-		
+
+
+			
 		JMenuBar m_MenuBar_Main = new JMenuBar();
 		frame.setJMenuBar(m_MenuBar_Main);
 		
@@ -176,6 +192,7 @@ public class MainWindow
 		frame.getContentPane().add(m_Label_NomDuProjet);
 		
 
+	
 		
 
 	}
@@ -195,6 +212,23 @@ public class MainWindow
 		}
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
 	
