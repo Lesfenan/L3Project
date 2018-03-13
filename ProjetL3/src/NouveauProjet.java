@@ -1,52 +1,46 @@
-
-
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class NouveauProjet extends JFrame {
+public class NouveauProjet extends JDialog {
 
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField m_textField_NomProjet;
 	private ArrayList<Projet> ListeProvisoire;
 	private ArrayList<Enseignant> ListeProvisoireEns;
-	private JComboBox<String> comboBox;
+	private JTextField m_textField_AddEleve;
+	private JComboBox m_ComboBox_Tuteur;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NouveauProjet frame = new NouveauProjet();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			NouveauProjet dialog = new NouveauProjet();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the dialog.
 	 */
 	public NouveauProjet() {
+		
 		ListeProvisoire = new ArrayList<Projet>();
 		ListeProvisoireEns = new ArrayList<Enseignant>();
 		ListeProvisoireEns.add(new Enseignant("Jean", "Dupont"));
@@ -54,72 +48,87 @@ public class NouveauProjet extends JFrame {
 		ListeProvisoireEns.add(new Enseignant("Fred", "Vasseur"));
 		ListeProvisoireEns.add(new Enseignant("Jeanne", "Bertoux"));
 		
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 274, 423);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLabel lblNomDuProjet = new JLabel("Nom du projet");
-		lblNomDuProjet.setBounds(10, 34, 118, 14);
-		contentPane.add(lblNomDuProjet);
+		setBounds(100, 100, 380, 493);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Tuteur");
-		lblNewLabel.setBounds(10, 113, 46, 14);
-		contentPane.add(lblNewLabel);
+		JLabel m_Label_NomProjet = new JLabel("Nom du Projet");
+		m_Label_NomProjet.setBounds(22, 40, 102, 16);
+		contentPanel.add(m_Label_NomProjet);
 		
-		JLabel lblElves = new JLabel("El\u00E8ves");
-		lblElves.setBounds(10, 160, 46, 14);
-		contentPane.add(lblElves);
+		m_textField_NomProjet = new JTextField();
+		m_textField_NomProjet.setBounds(154, 35, 196, 26);
+		contentPanel.add(m_textField_NomProjet);
+		m_textField_NomProjet.setColumns(10);
 		
-		JLabel lblMotsCls = new JLabel("Mots cl\u00E9s");
-		lblMotsCls.setBounds(10, 240, 79, 14);
-		contentPane.add(lblMotsCls);
+		JLabel m_Label_Tuteur = new JLabel("Tuteur");
+		m_Label_Tuteur.setBounds(22, 118, 61, 16);
+		contentPanel.add(m_Label_Tuteur);
 		
-		textField = new JTextField();
-		textField.setBounds(140, 31, 108, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		m_ComboBox_Tuteur = new JComboBox();
+		m_ComboBox_Tuteur.setModel(new DefaultComboBoxModel(getEnseignantNomPrenom(ListeProvisoireEns).toArray()));
+		m_ComboBox_Tuteur.setBounds(154, 114, 196, 27);
+		contentPanel.add(m_ComboBox_Tuteur);
 		
-		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel(getEnseignantNomPrenom(ListeProvisoireEns).toArray()));
-		comboBox.setBounds(98, 110, 150, 20);
-		contentPane.add(comboBox);
+		JLabel m_Label_Eleves = new JLabel("Eleves");
+		m_Label_Eleves.setBounds(22, 186, 61, 16);
+		contentPanel.add(m_Label_Eleves);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(98, 157, 150, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		m_textField_AddEleve = new JTextField();
+		m_textField_AddEleve.setBounds(154, 181, 130, 26);
+		contentPanel.add(m_textField_AddEleve);
+		m_textField_AddEleve.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(98, 188, 150, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		JButton m_Button_AddEleve = new JButton("OK");
+		m_Button_AddEleve.setBounds(302, 181, 48, 29);
+		contentPanel.add(m_Button_AddEleve);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(98, 219, 150, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		JComboBox m_ComboBox_ListeEleves = new JComboBox();
+		m_ComboBox_ListeEleves.setBounds(154, 226, 196, 27);
+		contentPanel.add(m_ComboBox_ListeEleves);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 261, 238, 54);
-		contentPane.add(textArea);
+		JLabel m_Label_MotsCles = new JLabel("Mots clés");
+		m_Label_MotsCles.setBounds(22, 275, 61, 16);
+		contentPanel.add(m_Label_MotsCles);
 		
-		JButton btnCrer = new JButton("Cr\u00E9er");
-		btnCrer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AddProjet();
+		JTextArea m_textArea_MotsCles = new JTextArea();
+		m_textArea_MotsCles.setBounds(22, 303, 326, 123);
+		contentPanel.add(m_textArea_MotsCles);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) 
+					{
+						AddProjet();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
 			}
-		});
-		btnCrer.setBounds(159, 350, 89, 23);
-		contentPane.add(btnCrer);
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
 	}
-	
+
 	public void AddProjet()
 	{
-		ListeProvisoire.add(new Projet(textField.getText(), ListeProvisoireEns.get(comboBox.getSelectedIndex())));
+		ListeProvisoire.add(new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex())));
 		for(Projet i : ListeProvisoire)
 		{
 		System.out.println("Projet : " + i.getSujet());
@@ -137,4 +146,5 @@ public class NouveauProjet extends JFrame {
 		return result;
 		
 	}
+
 }

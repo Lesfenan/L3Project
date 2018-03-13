@@ -152,8 +152,9 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-				NouveauProjet test = new NouveauProjet();
-				test.setVisible(true);
+				NouveauProjet m_NouveauProjet = new NouveauProjet();
+				m_NouveauProjet.setVisible(true);
+				// Affichier fenêtre
 			}
 		});
 		m_Menu_CreateProject.add(m_MenuItem_Nouveau);
