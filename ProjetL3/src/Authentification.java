@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Authentification extends JDialog {
 
@@ -33,28 +35,30 @@ public class Authentification extends JDialog {
 	 * Create the dialog.
 	 */
 	public Authentification() {
+		setResizable(false);
+		setUndecorated(true);
 		setTitle("Connexion");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 314, 148);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel m_Label_ID = new JLabel("Identifiant");
-		m_Label_ID.setBounds(40, 61, 103, 16);
+		m_Label_ID.setBounds(20, 22, 103, 16);
 		contentPanel.add(m_Label_ID);
 		
 		m_textField_ID = new JTextField();
-		m_textField_ID.setBounds(187, 56, 165, 26);
+		m_textField_ID.setBounds(135, 17, 165, 26);
 		contentPanel.add(m_textField_ID);
 		m_textField_ID.setColumns(10);
 		
 		JLabel m_label_Password = new JLabel("Mot de passe");
-		m_label_Password.setBounds(40, 137, 83, 16);
+		m_label_Password.setBounds(20, 50, 83, 16);
 		contentPanel.add(m_label_Password);
 		
 		m_JPassword_Password = new JPasswordField();
-		m_JPassword_Password.setBounds(187, 132, 165, 26);
+		m_JPassword_Password.setBounds(135, 55, 165, 26);
 		contentPanel.add(m_JPassword_Password);
 		{
 			JPanel buttonPane = new JPanel();
@@ -68,6 +72,11 @@ public class Authentification extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
