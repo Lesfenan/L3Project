@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,7 +24,7 @@ public class Authentification extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Authentification dialog = new Authentification();
+			Authentification dialog = new Authentification(null, false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -34,9 +35,11 @@ public class Authentification extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Authentification() {
+	public Authentification(Frame mainWindow, boolean modal) {
+		super(mainWindow, modal);
+		
+		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);
-		setUndecorated(true);
 		setTitle("Connexion");
 		setBounds(100, 100, 314, 148);
 		getContentPane().setLayout(new BorderLayout());
@@ -66,6 +69,11 @@ public class Authentification extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

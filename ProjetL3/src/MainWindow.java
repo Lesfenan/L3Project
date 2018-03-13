@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -184,9 +185,8 @@ public class MainWindow
 		frame.getContentPane().add(m_Label_NomDuProjet);
 		
 
-	
-		
-
+	///////START///////////
+		showAuth();
 	}
 	public void addJalon()
 	{
@@ -224,6 +224,12 @@ public class MainWindow
 
 
 		});
+	}
+
+	private void showAuth()
+	{
+		Authentification test = new Authentification(this.frame, false);
+		test.setVisible(true);
 	}
 }
 	

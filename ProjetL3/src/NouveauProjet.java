@@ -111,6 +111,7 @@ public class NouveauProjet extends JDialog {
 					public void actionPerformed(ActionEvent e) 
 					{
 						AddProjet();
+						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
