@@ -1,0 +1,150 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class NouveauProjet extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JTextField m_textField_NomProjet;
+	private ArrayList<Projet> ListeProvisoire;
+	private ArrayList<Enseignant> ListeProvisoireEns;
+	private JTextField m_textField_AddEleve;
+	private JComboBox m_ComboBox_Tuteur;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			NouveauProjet dialog = new NouveauProjet();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public NouveauProjet() {
+		
+		ListeProvisoire = new ArrayList<Projet>();
+		ListeProvisoireEns = new ArrayList<Enseignant>();
+		ListeProvisoireEns.add(new Enseignant("Jean", "Dupont"));
+		ListeProvisoireEns.add(new Enseignant("Judith", "Benzakki"));
+		ListeProvisoireEns.add(new Enseignant("Fred", "Vasseur"));
+		ListeProvisoireEns.add(new Enseignant("Jeanne", "Bertoux"));
+		
+		
+		setBounds(100, 100, 380, 493);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		JLabel m_Label_NomProjet = new JLabel("Nom du Projet");
+		m_Label_NomProjet.setBounds(22, 40, 102, 16);
+		contentPanel.add(m_Label_NomProjet);
+		
+		m_textField_NomProjet = new JTextField();
+		m_textField_NomProjet.setBounds(154, 35, 196, 26);
+		contentPanel.add(m_textField_NomProjet);
+		m_textField_NomProjet.setColumns(10);
+		
+		JLabel m_Label_Tuteur = new JLabel("Tuteur");
+		m_Label_Tuteur.setBounds(22, 118, 61, 16);
+		contentPanel.add(m_Label_Tuteur);
+		
+		m_ComboBox_Tuteur = new JComboBox();
+		m_ComboBox_Tuteur.setModel(new DefaultComboBoxModel(getEnseignantNomPrenom(ListeProvisoireEns).toArray()));
+		m_ComboBox_Tuteur.setBounds(154, 114, 196, 27);
+		contentPanel.add(m_ComboBox_Tuteur);
+		
+		JLabel m_Label_Eleves = new JLabel("Eleves");
+		m_Label_Eleves.setBounds(22, 186, 61, 16);
+		contentPanel.add(m_Label_Eleves);
+		
+		m_textField_AddEleve = new JTextField();
+		m_textField_AddEleve.setBounds(154, 181, 130, 26);
+		contentPanel.add(m_textField_AddEleve);
+		m_textField_AddEleve.setColumns(10);
+		
+		JButton m_Button_AddEleve = new JButton("OK");
+		m_Button_AddEleve.setBounds(302, 181, 48, 29);
+		contentPanel.add(m_Button_AddEleve);
+		
+		JComboBox m_ComboBox_ListeEleves = new JComboBox();
+		m_ComboBox_ListeEleves.setBounds(154, 226, 196, 27);
+		contentPanel.add(m_ComboBox_ListeEleves);
+		
+		JLabel m_Label_MotsCles = new JLabel("Mots clés");
+		m_Label_MotsCles.setBounds(22, 275, 61, 16);
+		contentPanel.add(m_Label_MotsCles);
+		
+		JTextArea m_textArea_MotsCles = new JTextArea();
+		m_textArea_MotsCles.setBounds(22, 303, 326, 123);
+		contentPanel.add(m_textArea_MotsCles);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) 
+					{
+						AddProjet();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+
+	public void AddProjet()
+	{
+		ListeProvisoire.add(new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex())));
+		for(Projet i : ListeProvisoire)
+		{
+		System.out.println("Projet : " + i.getSujet());
+		System.out.println("Ens : " + i.getEnseignant().getNom());
+		}
+	}
+	
+	public ArrayList<String> getEnseignantNomPrenom(ArrayList<Enseignant> Ens)
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		for(Enseignant i : Ens)
+		{
+			result.add(i.getPrenom() + " " + i.getNom());
+		}
+		return result;
+		
+	}
+
+}
