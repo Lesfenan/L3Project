@@ -1,6 +1,5 @@
 
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +17,10 @@ import java.awt.event.ActionEvent;
 
 public class NouveauProjetOld extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -46,6 +49,7 @@ public class NouveauProjetOld extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public NouveauProjetOld() {
 		ListeProvisoire = new ArrayList<Projet>();
 		ListeProvisoireEns = new ArrayList<Enseignant>();

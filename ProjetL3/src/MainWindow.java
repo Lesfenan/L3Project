@@ -1,19 +1,12 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
@@ -21,24 +14,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.LayoutManager;
-import java.awt.Canvas;
 import java.awt.SystemColor;
 import java.awt.Cursor;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JTree;
-import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 // Main
@@ -154,7 +136,7 @@ public class MainWindow
 			{
 				NouveauProjet m_NouveauProjet = new NouveauProjet();
 				m_NouveauProjet.setVisible(true);
-				// Affichier fenêtre
+				// Afficher fenêtre
 			}
 		});
 		m_Menu_CreateProject.add(m_MenuItem_Nouveau);

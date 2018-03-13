@@ -5,7 +5,7 @@ public class Rapport {
 	private int ID;
 	
 	public Rapport (int newID, String nomJalon ){
-		ID = newID;
+		setID(newID);
 		setTitre("Rapport "+ nomJalon);
 	}
 	 /*
@@ -44,6 +44,14 @@ public class Rapport {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
 	

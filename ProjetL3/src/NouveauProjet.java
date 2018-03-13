@@ -15,12 +15,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class NouveauProjet extends JDialog {
-
+	
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField m_textField_NomProjet;
 	private ArrayList<Projet> ListeProvisoire;
 	private ArrayList<Enseignant> ListeProvisoireEns;
 	private JTextField m_textField_AddEleve;
+	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_Tuteur;
 
 	/**
@@ -39,7 +41,9 @@ public class NouveauProjet extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NouveauProjet() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public NouveauProjet() 
+	{
 		
 		ListeProvisoire = new ArrayList<Projet>();
 		ListeProvisoireEns = new ArrayList<Enseignant>();
