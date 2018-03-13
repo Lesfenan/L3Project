@@ -1,83 +1,57 @@
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Authentification extends JFrame {
+public class Authentification extends JDialog {
 
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private final JPanel contentPanel = new JPanel();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Authentification frame = new Authentification();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			Authentification dialog = new Authentification();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the dialog.
 	 */
 	public Authentification() {
-		setResizable(false);
-		setTitle("Authentification");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(173, 72, 189, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblUser = new JLabel("Identifiant");
-		lblUser.setBounds(81, 75, 66, 14);
-		contentPane.add(lblUser);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(173, 125, 189, 20);
-		contentPane.add(passwordField);
-		
-		JLabel lblPassword = new JLabel("Mot de passe");
-		lblPassword.setBounds(81, 128, 82, 14);
-		contentPane.add(lblPassword);
-		
-		JButton btnConnection = new JButton("Connexion");
-		btnConnection.addActionListener(new ActionListener()
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setLayout(new FlowLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			public void actionPerformed(ActionEvent arg0) 
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				test();
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
 			}
-		});
-		btnConnection.setBounds(256, 180, 106, 23);
-		contentPane.add(btnConnection);
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
 	}
-	
-	public void test()
-	{
-		System.out.println(passwordField.getPassword());
-	}
+
 }
