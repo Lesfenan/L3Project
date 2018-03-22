@@ -10,7 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class Authentification extends JDialog {
 
@@ -18,6 +22,8 @@ public class Authentification extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField m_textField_ID;
 	private JPasswordField m_JPassword_Password;
+	private Map<String, String> User;
+	private JLabel m_Label_ErreurID;
 
 	/**
 	 * Launch the application.
@@ -37,6 +43,9 @@ public class Authentification extends JDialog {
 	 */
 	public Authentification(Frame mainWindow, boolean modal) {
 		super(mainWindow, modal);
+		setUndecorated(true);
+		User = new HashMap<String, String>();
+		User.put("pogoman23", "salutcava");
 		
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);
@@ -63,6 +72,13 @@ public class Authentification extends JDialog {
 		m_JPassword_Password = new JPasswordField();
 		m_JPassword_Password.setBounds(135, 55, 165, 26);
 		contentPanel.add(m_JPassword_Password);
+		
+		m_Label_ErreurID = new JLabel("Identifiants incorrects");
+		m_Label_ErreurID.setForeground(Color.RED);
+		m_Label_ErreurID.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		m_Label_ErreurID.setBounds(86, 87, 159, 16);
+		m_Label_ErreurID.setVisible(false);
+		contentPanel.add(m_Label_ErreurID);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -71,7 +87,7 @@ public class Authentification extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						verifyConnect();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -82,12 +98,30 @@ public class Authentification extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						
+						System.exit(0);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+
+	private void verifyConnect()
+	{
+		String pw = String.valueOf(m_JPassword_Password.getPassword());
+		if(User.containsKey(m_textField_ID.getText()))
+		{
+			if(User.get(m_textField_ID.getText()).equals(pw))
+			{
+				dispose();
+			}
+			else
+				m_Label_ErreurID.setVisible(true);
+		}
+		else
+			m_Label_ErreurID.setVisible(true);
 	}
 }
