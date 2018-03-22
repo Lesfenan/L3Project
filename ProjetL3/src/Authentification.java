@@ -46,6 +46,7 @@ public class Authentification extends JDialog {
 		setUndecorated(true);
 		User = new HashMap<String, String>();
 		User.put("pogoman23", "salutcava");
+		User.put("a", "a");
 		
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);

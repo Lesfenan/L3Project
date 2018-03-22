@@ -21,9 +21,11 @@ public class NouveauProjet extends JDialog {
 	private JTextField m_textField_NomProjet;
 	private ArrayList<Projet> ListeProvisoire;
 	private ArrayList<Enseignant> ListeProvisoireEns;
+	private ArrayList<Eleve> ListeEleves;
 	private JTextField m_textField_AddEleve;
 	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_Tuteur;
+	private JComboBox m_ComboBox_ListeEleves;
 
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class NouveauProjet extends JDialog {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NouveauProjet() 
 	{
-		
+		ListeEleves = new ArrayList<Eleve>();
 		ListeProvisoire = new ArrayList<Projet>();
 		ListeProvisoireEns = new ArrayList<Enseignant>();
 		ListeProvisoireEns.add(new Enseignant("Jean", "Dupont"));
@@ -87,10 +89,20 @@ public class NouveauProjet extends JDialog {
 		m_textField_AddEleve.setColumns(10);
 		
 		JButton m_Button_AddEleve = new JButton("OK");
+		m_Button_AddEleve.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				String[] content = m_textField_AddEleve.getText().split(" ");
+				String prenom = content[0];
+				String nom = content[1];
+				ListeEleves.add(new Eleve(prenom, nom));
+				m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
+			}
+		});
 		m_Button_AddEleve.setBounds(302, 181, 48, 29);
 		contentPanel.add(m_Button_AddEleve);
 		
-		JComboBox m_ComboBox_ListeEleves = new JComboBox();
+		m_ComboBox_ListeEleves = new JComboBox();
 		m_ComboBox_ListeEleves.setBounds(154, 226, 196, 27);
 		contentPanel.add(m_ComboBox_ListeEleves);
 		
