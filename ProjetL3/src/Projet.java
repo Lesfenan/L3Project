@@ -14,10 +14,14 @@ public class Projet {
 	
 	public Projet(String argSujet, Enseignant argEnseignant) {
 		setEnseignant(argEnseignant);
-		ArrayList<String> motsCles = new ArrayList<String>();
+		
 		sujet = argSujet;
-		motsCles.add(argSujet);
+		
 		annee = Calendar.getInstance().get(Calendar.YEAR);
+		collectionEleves = new ArrayList<Eleve>();
+		motsCles = new ArrayList<String>();
+		motsCles.add(argSujet);
+		collectionJalons = new ArrayList<Jalon>();
 	}
 	
 	public void addMotCle(String argMotCle) {

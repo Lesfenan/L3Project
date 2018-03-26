@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -18,13 +19,14 @@ public class NouveauProjet extends JDialog {
 	
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private JTextArea m_textArea_MotsCles;
 	private JTextField m_textField_NomProjet;
-	private ArrayList<Projet> ListeProvisoire;
 	private ArrayList<Enseignant> ListeProvisoireEns;
 	private ArrayList<Eleve> ListeEleves;
 	private JTextField m_textField_AddEleve;
 	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_Tuteur;
+	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_ListeEleves;
 
 	/**
@@ -32,7 +34,7 @@ public class NouveauProjet extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			NouveauProjet dialog = new NouveauProjet();
+			NouveauProjet dialog = new NouveauProjet(null, false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -44,10 +46,12 @@ public class NouveauProjet extends JDialog {
 	 * Create the dialog.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public NouveauProjet() 
+	public NouveauProjet(Frame parent, boolean modal) 
 	{
+		super(parent, modal);
+		
 		ListeEleves = new ArrayList<Eleve>();
-		ListeProvisoire = new ArrayList<Projet>();
+		
 		ListeProvisoireEns = new ArrayList<Enseignant>();
 		ListeProvisoireEns.add(new Enseignant("Jean", "Dupont"));
 		ListeProvisoireEns.add(new Enseignant("Judith", "Benzakki"));
@@ -110,7 +114,7 @@ public class NouveauProjet extends JDialog {
 		m_Label_MotsCles.setBounds(22, 275, 61, 16);
 		contentPanel.add(m_Label_MotsCles);
 		
-		JTextArea m_textArea_MotsCles = new JTextArea();
+		m_textArea_MotsCles = new JTextArea();
 		m_textArea_MotsCles.setBounds(22, 303, 326, 123);
 		contentPanel.add(m_textArea_MotsCles);
 		{
@@ -145,12 +149,19 @@ public class NouveauProjet extends JDialog {
 
 	public void AddProjet()
 	{
-		ListeProvisoire.add(new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex())));
-		for(Projet i : ListeProvisoire)
+		Projet newProject = new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()));
+		
+		for(Eleve e : ListeEleves)
 		{
-		System.out.println("Projet : " + i.getSujet());
-		System.out.println("Ens : " + i.getEnseignant().getNom());
+			System.out.println(e.getPrenom());
+			newProject.addEleve(e);
 		}
+		
+		newProject.addMotCle(m_textArea_MotsCles.getText());
+		
+		
+		
+		MainWindow.getM_listeProjet().add(newProject);
 	}
 	
 	public ArrayList<String> getEnseignantNomPrenom(ArrayList<Enseignant> Ens)

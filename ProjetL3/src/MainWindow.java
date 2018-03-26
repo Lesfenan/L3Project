@@ -7,9 +7,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
-import java.util.Vector;
-
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -38,6 +36,9 @@ public class MainWindow
 	private JLabel m_Label_Information;
 	private JPopupMenu m_ContextMenu_AddJalon;
 	private JMenuItem m_MenuItem_AddJalons;
+	public static ArrayList<Projet> m_listeProjet;
+
+
 
 	/**
 	 * Launch the application.
@@ -73,6 +74,8 @@ public class MainWindow
 	 */
 	private void initialize() 
 	{
+		m_listeProjet = new ArrayList<Projet>();
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(50, 50, 1280, 720);
@@ -96,6 +99,13 @@ public class MainWindow
 		
 		
 		m_MenuItem_AddJalons = new JMenuItem("Ajouter Jalon");
+		m_MenuItem_AddJalons.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				addJalon();
+			}
+		});
 		m_ContextMenu_AddJalon.add(m_MenuItem_AddJalons);
 		frame.getContentPane().add(m_SP_Tree);
 		m_SP_Tree.setBounds(0, 35, 229, 465);
@@ -135,8 +145,9 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-				NouveauProjet m_NouveauProjet = new NouveauProjet();
+				NouveauProjet m_NouveauProjet = new NouveauProjet(frame, true);
 				m_NouveauProjet.setVisible(true);
+				addProject();
 				// Afficher fenêtre
 			}
 		});
@@ -188,14 +199,36 @@ public class MainWindow
 	///////START///////////
 		showAuth();
 	}
-	public void addJalon()
+	
+	public void addProject()
 	{
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
-		Vector<String> test = new Vector<>();
-		test.add("test");
+		//Vector<String> test = new Vector<>();
 		
-		model.setValueAt("Jeanne, Kilian", 0, 0);
-		model.setValueAt("Envoyé", 0, 1);
+		Projet newProject = getM_listeProjet().get(getM_listeProjet().size() - 1);
+		
+		String Eleves = "";
+		
+		for(Eleve e : newProject.getCollectionEleves())
+		{
+			Eleves += e.getPrenom() + " " + e.getNom() + ", ";
+		}
+		Eleves=Eleves.replaceAll(", $","");
+		
+		model.setValueAt(Eleves, getM_listeProjet().size() - 1, 0);
+	}
+	
+	public void addJalon()
+	{
+		DefaultMutableTreeNode jalons = new DefaultMutableTreeNode("Diagramme");
+		root.insert(jalons, root.getChildCount());
+		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
+		modelTree.reload();
+		
+		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
+		model.addColumn("Diagramme");
+		
+		/*
 		
 		for(int i = 0; i<10; i++)
 		{
@@ -204,6 +237,8 @@ public class MainWindow
 		}
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
+		
+		*/
 	}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -230,6 +265,15 @@ public class MainWindow
 	{
 		Authentification test = new Authentification(this.frame, false);
 		test.setVisible(true);
+	}
+	
+	
+	public static ArrayList<Projet> getM_listeProjet() {
+		return m_listeProjet;
+	}
+
+	public static void setM_listeProjet(ArrayList<Projet> m_listeProjet) {
+		MainWindow.m_listeProjet = m_listeProjet;
 	}
 }
 	
