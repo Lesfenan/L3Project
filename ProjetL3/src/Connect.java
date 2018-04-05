@@ -16,21 +16,27 @@ public class Connect {
     }
     try {
          
-     // String server = "phpmyadmin.clster021.hosting.ovh.net";
-      String server = "phpmyadmin.cluster021.hosting.ovh.net";
-      String login = "mcregiecujsteve";
-      String pass = "TanguyMarwan0";
+      String server = "jdbc:mysql://localhost:3306/mcregiecujsteve";
+      //String server = "http://localhost/phpmyadmin:3306/mcregiecujsteve";
       String dbname = "mcregiecujsteve";
          
-      Connection conn = DriverManager.getConnection(server, login, pass);
+      Connection conn = DriverManager.getConnection(server,"root","");
+      
+      
+      
          
       //Création d'un objet Statement
       Statement state = conn.createStatement();
       //L'objet ResultSet contient le résultat de la requête SQL
-      ResultSet result = state.executeQuery("SELECT * FROM Eleve");
+      ResultSet result = state.executeQuery("SELECT * FROM eleve");
       //On récupère les MetaData
       ResultSetMetaData resultMeta = result.getMetaData();
-         
+      
+      while ( result.next() ) {
+    	    String emailUtilisateur = result.getString( "nom" );
+    	    System.out.println((emailUtilisateur));
+
+    	}
 
       result.close();
       state.close();
