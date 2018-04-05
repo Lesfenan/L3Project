@@ -103,7 +103,7 @@ public class NouveauProjet extends JDialog {
 				m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
 			}
 		});
-		m_Button_AddEleve.setBounds(302, 181, 48, 29);
+		m_Button_AddEleve.setBounds(302, 181, 72, 29);
 		contentPanel.add(m_Button_AddEleve);
 		
 		m_ComboBox_ListeEleves = new JComboBox();
