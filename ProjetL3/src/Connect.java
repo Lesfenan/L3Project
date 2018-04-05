@@ -37,6 +37,7 @@ public class Connect {
       while ( result.next() ) {
     	    String nomEleve = result.getString( "nom" );
     	    collectionElevesBD.add(new Eleve(nomEleve,nomEleve)); //TODO séparer noms et prenoms
+    	    														// Apres c'est ptet pas opti de à chaque fois remplir des ArrayList. Faudrait plutot faire la requeste direct dans la BD
 
     	}
 
