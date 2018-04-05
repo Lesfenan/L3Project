@@ -29,7 +29,7 @@ public class NouveauJalon extends JDialog {
 	 * Create the dialog.
 	 */
 	public NouveauJalon() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 350, 500);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
