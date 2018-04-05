@@ -1,16 +1,16 @@
-import java.sql.Date;
+
 
 public class Jalon {
 	
 	private String intitule;
 	private int progression;
 	private int notation;
-	private Date dateFin;
+	private java.util.Date dateFin;
 	
 	
-	public Jalon (String argIntitule,Date argDateFin ) {
+	public Jalon (String argIntitule,java.util.Date date ) {
 		intitule = argIntitule;
-		dateFin = argDateFin;
+		dateFin = date;
 		progression = 0;
 	}
 	
