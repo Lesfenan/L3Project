@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -7,15 +6,17 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class JalonWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField m_textField_Intitule;
-	private static ArrayList<Jalon> listeJalon;
+
+
 	private DateTextField m_Date_Calendrier;
 
 	/**
@@ -37,13 +38,22 @@ public class JalonWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JalonWindow() {
-		listeJalon = new ArrayList<Jalon>();
-		
-		setType(Type.POPUP);
+	public JalonWindow() 
+	{
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent e) {
+			}
+			public void windowLostFocus(WindowEvent e) 
+			{
+				toFront();
+				requestFocus();
+			}
+		});
 		setResizable(false);
+		
+		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 257, 230);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(100, 100, 282, 244));
@@ -75,6 +85,7 @@ public class JalonWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				addJalon();
+				windowClosing(null);
 			}
 		});
 		btnOk.setBounds(182, 171, 75, 29);
@@ -84,10 +95,15 @@ public class JalonWindow extends JFrame {
 	public void addJalon()
 	{
 		Jalon nouveauJalon = new Jalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate());
-		listeJalon.add(nouveauJalon);
-		for(Jalon date : listeJalon)
-		{
-			System.out.println(date.toString());
-		}
+		MainWindow.getM_listeJalon().add(nouveauJalon);
+		System.out.println(MainWindow.getM_listeJalon().size());
 	}
+	
+    public void windowClosing(WindowEvent arg0) {
+        synchronized (MainWindow.lock) {
+            setVisible(false);
+            MainWindow.lock.notify();
+        }
+    }
+
 }

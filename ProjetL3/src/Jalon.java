@@ -30,6 +30,14 @@ public class Jalon {
 		return progression;
 	}
 	
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
+	}
+	
 	public String toString() {
 		return ("Le projet " + intitule + " prend fin le "+ dateFin.toString() + ".");
 	}

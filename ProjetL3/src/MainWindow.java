@@ -37,7 +37,8 @@ public class MainWindow
 	private JPopupMenu m_ContextMenu_AddJalon;
 	private JMenuItem m_MenuItem_AddJalons;
 	public static ArrayList<Projet> m_listeProjet;
-
+	public static ArrayList<Jalon> m_listeJalon;
+	public static Object lock = new Object();
 
 
 	/**
@@ -59,6 +60,8 @@ public class MainWindow
 				}
 			}
 		});
+		
+
 	}
 
 	/**
@@ -75,6 +78,7 @@ public class MainWindow
 	private void initialize() 
 	{
 		m_listeProjet = new ArrayList<Projet>();
+		m_listeJalon = new ArrayList<Jalon>();
 		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -103,7 +107,25 @@ public class MainWindow
 			@Override
 			public void mousePressed(MouseEvent e)
 			{
-				addJalon();
+  				JalonWindow nouveauJalon = new JalonWindow();
+				nouveauJalon.setVisible(true);
+				nouveauJalon.setAlwaysOnTop(true);
+				
+			    Thread t = new Thread() {
+			        public void run() {
+						synchronized(lock) {
+			                while (nouveauJalon.isVisible())
+			                    try {
+			                        lock.wait();
+			                    } catch (InterruptedException e) {
+			                        e.printStackTrace();
+			                    }
+			                addJalon();
+			            }
+			        }
+			    };
+			    t.start();
+			
 			}
 		});
 		m_ContextMenu_AddJalon.add(m_MenuItem_AddJalons);
@@ -125,12 +147,7 @@ public class MainWindow
 		m_scrollPanel_Information.setBounds(0, 499, 1274, 171);
 		m_scrollPanel_Information.setAutoscrolls(true);
 
-
 		
-		
-
-
-			
 		JMenuBar m_MenuBar_Main = new JMenuBar();
 		frame.setJMenuBar(m_MenuBar_Main);
 		
@@ -145,8 +162,10 @@ public class MainWindow
 		{
 			public void mousePressed(MouseEvent e) 
 			{
+
 				NouveauProjet m_NouveauProjet = new NouveauProjet(frame, true);
 				m_NouveauProjet.setVisible(true);
+				m_NouveauProjet.setModal(true);
 				addProject();
 				// Afficher fenêtre
 			}
@@ -220,13 +239,13 @@ public class MainWindow
 	
 	public void addJalon()
 	{
-		DefaultMutableTreeNode jalons = new DefaultMutableTreeNode("Diagramme");
+		DefaultMutableTreeNode jalons = new DefaultMutableTreeNode(getM_listeJalon().get(getM_listeJalon().size() - 1).getIntitule());
 		root.insert(jalons, root.getChildCount());
 		DefaultTreeModel modelTree = (DefaultTreeModel)tree.getModel();
 		modelTree.reload();
 		
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
-		model.addColumn("Diagramme");
+		model.addColumn(getM_listeJalon().get(getM_listeJalon().size() - 1).getIntitule());
 		
 		/*
 		
@@ -274,6 +293,14 @@ public class MainWindow
 
 	public static void setM_listeProjet(ArrayList<Projet> m_listeProjet) {
 		MainWindow.m_listeProjet = m_listeProjet;
+	}
+	
+	public static ArrayList<Jalon> getM_listeJalon() {
+		return m_listeJalon;
+	}
+
+	public static void setM_listeJalon(ArrayList<Jalon> m_listeJalon) {
+		MainWindow.m_listeJalon = m_listeJalon;
 	}
 }
 	
