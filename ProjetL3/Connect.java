@@ -18,7 +18,12 @@ public class Connect {
 
   }
 
-  public static Connection getConnection() {
+  /**
+ * La methode getConnection se connecte ‡ la BD et renvoi un objet avec lequelle on peut directement faire des requetes SQL
+ * 
+ * @return Retourne un objet connection
+ */
+public static Connection getConnection() {
       if(conn != null) {
           return conn;
       }
@@ -28,7 +33,7 @@ public class Connect {
               String dbname = "mcregiecujsteve"; 
               Class.forName("com.mysql.jdbc.Driver").newInstance();
               conn = DriverManager.getConnection(server,"root","root");
-              System.out.println("Connect√©");
+              System.out.println("Connection");
           }
           catch(Exception e) {
         	  	System.out.println(e);

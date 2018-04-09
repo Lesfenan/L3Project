@@ -1,24 +1,24 @@
-
-
-
 public class Rapport {
 	private String titre;
 	private String description;
-	private int ID;
+	private int ID; // TODO ID généré automatiquement et non defini âr utilisateur ?
+	
+	/**
+	 * Constructeur de Rapport
+	 * @param newID ID du rapport
+	 * @param nomJalon nom du Jalon
+	 */
 	
 	public Rapport (int newID, String nomJalon ){
 		setID(newID);
 		setTitre("Rapport "+ nomJalon);
 	}
+	
 	 /*
 	public void setTitre (String newTitre){
 		titre = newTitre;
 	}
 	*/
-	
-	public void setDescritpion (String newDescritpion){
-		setDescription(newDescritpion);
-	}
 
 	/**
 	 * @return the titre
