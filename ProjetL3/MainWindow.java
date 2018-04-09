@@ -25,21 +25,67 @@ import javax.swing.JTree;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 // Main
+/**
+ * @author marwanoriginals
+ *Fenetre principale
+ */
 public class MainWindow 
 {
+	/**
+	 * Scroll Bar principale
+	 */
 	private JScrollPane m_SP;
+	/**
+	 * Scroll bar de l'arbre
+	 */
 	private JScrollPane m_SP_Tree;
+	/**
+	 * Arbre des jalons
+	 */
 	private JTree tree;
+	/**
+	 * Fenetre
+	 */
 	private JFrame frame;
+	/**
+	 * Tableur
+	 */
 	private JTable m_Table_Frise;
+	/**
+	 * racine de l'arbre jalon
+	 */
 	private DefaultMutableTreeNode root;
+	/**
+	 * Objet permettant d'afficher une scroll bar
+	 */
 	private JScrollPane m_scrollPanel_Information;
+	/**
+	 * panneau d'information
+	 */
 	private JPanel m_Pannel_Information;
+	/**
+	 * label d'information
+	 */
 	private JLabel m_Label_Information;
+	/**
+	 * Menu contextuelle pour gerer un jalon
+	 */
 	private JPopupMenu m_ContextMenu_AddJalon;
+	/**
+	 * Objet menu pour ajouter un jalon
+	 */
 	private JMenuItem m_MenuItem_AddJalons;
+	/**
+	 * liste de projets
+	 */
 	public static ArrayList<Projet> m_listeProjet;
+	/**
+	 * liste de jalons
+	 */
 	public static ArrayList<Jalon> m_listeJalon;
+	/**
+	 * Objet permettant de bloquer la fenetre
+	 */
 	public static Object lock = new Object();
 
 
@@ -75,7 +121,7 @@ public class MainWindow
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise les elements de la fenetre
 	 */
 	private void initialize() 
 	{
@@ -221,6 +267,9 @@ public class MainWindow
 		showAuth();
 	}
 	
+	/**
+	 * Ajout un projet dans le tableur
+	 */
 	public void addProject()
 	{
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
@@ -239,6 +288,9 @@ public class MainWindow
 		model.setValueAt(Eleves, getM_listeProjet().size() - 1, 0);
 	}
 	
+	/**
+	 * Ajoute un jalon dans la treelist
+	 */
 	public void addJalon()
 	{
 		DefaultMutableTreeNode jalons = new DefaultMutableTreeNode(getM_listeJalon().get(getM_listeJalon().size() - 1).getIntitule());
@@ -262,6 +314,11 @@ public class MainWindow
 		*/
 	}
 	
+	/**
+	 * Permet d'ajouter un menu contextuelle a un element
+	 * @param component element sur lequelle on veut avoir le menu contextuelle
+	 * @param popup menu contextuelle que l'on veut ajouter
+	 */
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -282,6 +339,9 @@ public class MainWindow
 		});
 	}
 
+	/**
+	 * Affiche la fenetre d'authentification des le lancement du programme
+	 */
 	private void showAuth()
 	{
 		Authentification test = new Authentification(this.frame, false);
@@ -289,18 +349,30 @@ public class MainWindow
 	}
 	
 	
+	/**Get dans la liste des projets
+	 * @return liste des projets
+	 */
 	public static ArrayList<Projet> getM_listeProjet() {
 		return m_listeProjet;
 	}
 
+	/**Set dans la liste des projets
+	 * @param m_listeProjet liste des projets
+	 */
 	public static void setM_listeProjet(ArrayList<Projet> m_listeProjet) {
 		MainWindow.m_listeProjet = m_listeProjet;
 	}
 	
+	/**Get dans la liste des jalons
+	 * @return liste des jalons
+	 */
 	public static ArrayList<Jalon> getM_listeJalon() {
 		return m_listeJalon;
 	}
 
+	/**Set dans la liste des jalons
+	 * @param m_listeJalon liste des jalons
+	 */
 	public static void setM_listeJalon(ArrayList<Jalon> m_listeJalon) {
 		MainWindow.m_listeJalon = m_listeJalon;
 	}

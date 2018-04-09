@@ -26,15 +26,43 @@ import java.awt.Color;
 
 public class NouveauProjet extends JDialog {
 	
-	private static final long serialVersionUID = 1L;
+	/**
+	 * serial ID pour swing
+	 */
+	private static final long serialVersionUID = 1;
+	/**
+	 * Pannel où vont s'afficher les elements de la fenetre
+	 */
 	private final JPanel contentPanel = new JPanel();
+	
+	/**
+	 * champ de texte mots cles
+	 */
 	private JTextArea m_textArea_MotsCles;
+	/**
+	 * champ de texte nom du projet
+	 */
 	private JTextField m_textField_NomProjet;
+	/**
+	 * Collection d'enseignants
+	 */
 	private ArrayList<Enseignant> ListeProvisoireEns;
+	/**
+	 * Collection d'eleves
+	 */
 	private ArrayList<Eleve> ListeEleves;
+	/**
+	 * Champ pour le nom de l'eleve
+	 */
 	private JTextField m_textField_AddEleve;
+	/**
+	 * Combobox pour choisir un tuteur
+	 */
 	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_Tuteur;
+	/**
+	 * Combobox liste des eleves selectionnes
+	 */
 	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_ListeEleves;
 
@@ -171,6 +199,10 @@ public class NouveauProjet extends JDialog {
 		}
 	}
 
+	
+	/**
+	 * Ajout projet dans la memoire de la fenetre principale et dans la base de donnees
+	 */
 	public void AddProjet()
 	{
 		
@@ -204,6 +236,12 @@ public class NouveauProjet extends JDialog {
 		MainWindow.getM_listeProjet().add(newProject);
 	}
 	
+	
+	/**
+	 * Permet d'avoir une chaine de caracteres avec le prenom et le nom
+	 * @param Ens l'objet enseignant
+	 * @return chaine de caracteres avec le nom et prenom
+	 */
 	public ArrayList<String> getEnseignantNomPrenom(ArrayList<Enseignant> Ens)
 	{
 		ArrayList<String> result = new ArrayList<String>();

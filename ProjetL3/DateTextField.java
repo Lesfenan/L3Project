@@ -31,6 +31,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ *  Bibliotheque externe en plus permettant d'afficher un calendrier pour Swing
+ *
+ */
 public class DateTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;

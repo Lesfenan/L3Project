@@ -20,9 +20,21 @@ import java.awt.event.ActionEvent;
 
 public class RechercheProjetWindow extends JFrame {
 
+	/**
+	 * Objet où vont s'afficher les elements graphiques
+	 */
 	private JPanel contentPane;
+	/**
+	 * Champ de texte du nom recherche
+	 */
 	private JTextField m_textField_NomProjet;
+	/**
+	 * Combobox des resultats
+	 */
 	private JComboBox m_comboBox_Result;
+	/**
+	 * Objet recherche pour rechercher dans la BD
+	 */
 	private Recherche SearchDB;
 
 	/**
@@ -98,6 +110,10 @@ public class RechercheProjetWindow extends JFrame {
 		contentPane.add(m_comboBox_Result);
 	}
 	
+	/**
+	 * Permet de rechercher une chaine de caracteres parmi les noms des etudiants
+	 * @param req chaine de caracteres a rechercher
+	 */
 	public void RechercheNom(String req)
 	{
 		System.out.println(SearchDB.rechercher(req).size() + " " + req);

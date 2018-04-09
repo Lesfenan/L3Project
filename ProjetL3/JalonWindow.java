@@ -14,11 +14,24 @@ import java.awt.event.WindowEvent;
 
 public class JalonWindow extends JFrame {
 
+	/**
+	 * serial ID pour swing
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Pannel où vont s'afficher les elements de la fenetre
+	 */
 	private JPanel contentPane;
+	
+	/**
+	 * champ de texte de l'intitule
+	 */
 	private JTextField m_textField_Intitule;
 
 
+	/**
+	 * Element permettant d'afficher un calendrier
+	 */
 	private DateTextField m_Date_Calendrier;
 
 	/**
@@ -38,7 +51,7 @@ public class JalonWindow extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creation de la fenetre
 	 */
 	public JalonWindow() 
 	{
@@ -94,13 +107,20 @@ public class JalonWindow extends JFrame {
 		contentPane.add(btnOk);
 	}
 	
+	
+	/**
+	 * Ajout d'un jalon dans la memoire de la fenetre principale en fonction des champs
+	 */
 	public void addJalon()
 	{
 		Jalon nouveauJalon = new Jalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate());
 		MainWindow.getM_listeJalon().add(nouveauJalon);
-		System.out.println(MainWindow.getM_listeJalon().size());
 	}
 	
+    /**
+     * permet de reveiller la fenetre principale et de fermer cette fenetre
+     * @param arg0 argument evenement
+     */
     public void windowClosing(WindowEvent arg0) {
         synchronized (MainWindow.lock) {
             setVisible(false);

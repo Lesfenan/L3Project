@@ -18,13 +18,32 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 
-public class Authentification extends JDialog {
+public class Authentification extends JDialog 
+{
 
+	/**
+	 * serial ID pour swing
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Pannel où vont s'afficher les elements de la fenetre
+	 */
 	private final JPanel contentPanel = new JPanel();
+	/**
+	 * champ de texte de l'ID
+	 */
 	private JTextField m_textField_ID;
+	/**
+	 * champ de texte pour le mot de passe
+	 */
 	private JPasswordField m_JPassword_Password;
+	/**
+	 * Collection d'utilisateurs
+	 */
 	private Map<String, String> User;
+	/**
+	 * label qui s'affiche quand la connexion a echoue
+	 */
 	private JLabel m_Label_ErreurID;
 
 	/**
@@ -41,7 +60,9 @@ public class Authentification extends JDialog {
 	}
 
 	/**
-	 * Create the dialog.
+	 * Creation de la fenetre
+	 * @param mainWindow la fenetre parent
+	 * @param modal permet de bloquer ou non la fenetre parent
 	 */
 	public Authentification(Frame mainWindow, boolean modal) {
 		super(mainWindow, modal);
@@ -112,6 +133,10 @@ public class Authentification extends JDialog {
 	}
 	
 
+	
+	/**
+	 * Permet de voir si l'ID et le mot de passe sont valides et permettent de se connecter à l'interface de gestion de projet
+	 */
 	private void verifyConnect()
 	{
 		String pw = String.valueOf(m_JPassword_Password.getPassword());
