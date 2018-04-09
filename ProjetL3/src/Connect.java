@@ -3,47 +3,33 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-//CTRL + SHIFT + O pour générer les imports
+//CTRL + SHIFT + O pour generer les imports
 public class Connect {
+  protected ArrayList<Eleve> collectionElevesBD;
+  protected ArrayList<Enseignant> collectionEnseignantBD;
+  protected ArrayList<Jalon> collectionJalonsBD;
+  private static Connection conn = null;
 
-  public static void main(String[] args) {
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-    }catch(ClassNotFoundException cnfe){ 
-        System.out.println("La classe com.mysql.jdbc.Driver n'a pas été trouvée"); 
-        cnfe.printStackTrace(); 
-    }
-    try {
-         
-      String server = "jdbc:mysql://localhost:3306/mcregiecujsteve";
-      //String server = "http://localhost/phpmyadmin:3306/mcregiecujsteve";
-      String dbname = "mcregiecujsteve";
-         
-      Connection conn = DriverManager.getConnection(server,"root","");
-      
-      
-      
-         
-      //Création d'un objet Statement
-      Statement state = conn.createStatement();
-      //L'objet ResultSet contient le résultat de la requête SQL
-      ResultSet result = state.executeQuery("SELECT * FROM eleve");
-      //On récupère les MetaData
-      ResultSetMetaData resultMeta = result.getMetaData();
-      
-      while ( result.next() ) {
-    	    String emailUtilisateur = result.getString( "nom" );
-    	    System.out.println((emailUtilisateur));
+  public Connect() {
 
-    	}
-
-      result.close();
-      state.close();
-         
-    } catch (Exception e) {
-    	System.out.println("Erreur Serveur");
-      e.printStackTrace();
-    }      
   }
+
+  public static Connection getConnection() {
+      if(conn != null) {
+          return conn;
+      }
+      else {
+          try {
+              String server = "jdbc:mysql://localhost:3306/mcregiecujsteve";
+              String dbname = "mcregiecujsteve"; 
+              conn = DriverManager.getConnection(server,"root","");
+          }
+          catch(Exception e) {
+
+          }
+          return conn;  
+      }
+  }      
 }
