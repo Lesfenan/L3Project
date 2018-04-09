@@ -1,3 +1,5 @@
+package src;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,10 +26,10 @@ public class Connect {
           try {
               String server = "jdbc:mysql://localhost:3306/mcregiecujsteve";
               String dbname = "mcregiecujsteve"; 
-              conn = DriverManager.getConnection(server,"root","");
+              conn = DriverManager.getConnection(server,"root","root");
           }
           catch(Exception e) {
-
+        	  	System.out.println(e);
           }
           return conn;  
       }

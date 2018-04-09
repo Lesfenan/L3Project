@@ -1,7 +1,11 @@
+package src;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -13,6 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -165,6 +173,22 @@ public class NouveauProjet extends JDialog {
 
 	public void AddProjet()
 	{
+		
+		try {
+		Connection conn = new Connect().getConnection();
+		Statement state = conn.createStatement();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		System.out.println(calendar.YEAR);
+		state.executeUpdate("INSERT INTO Projet ( `annee`) VALUES ( '"+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH+"');");
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+
 		Projet newProject = new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()));
 		
 		for(Eleve e : ListeEleves)

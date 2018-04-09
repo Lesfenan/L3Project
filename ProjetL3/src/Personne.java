@@ -1,3 +1,5 @@
+package src;
+
 
 public class Personne {
 	private final String nom;

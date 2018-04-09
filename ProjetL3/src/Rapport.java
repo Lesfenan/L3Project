@@ -1,3 +1,5 @@
+package src;
+
 
 public class Rapport {
 	private String titre;
