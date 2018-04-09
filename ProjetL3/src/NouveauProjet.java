@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class NouveauProjet extends JDialog {
 	
@@ -92,15 +93,28 @@ public class NouveauProjet extends JDialog {
 		contentPanel.add(m_textField_AddEleve);
 		m_textField_AddEleve.setColumns(10);
 		
+		JLabel m_lbl_Erreur = new JLabel("Erreur : Veuillez respectecter le format : Prénom Nom");
+		m_lbl_Erreur.setForeground(Color.RED);
+		m_lbl_Erreur.setBounds(22, 153, 352, 16);
+		m_lbl_Erreur.setVisible(false);
+		contentPanel.add(m_lbl_Erreur);
+		
 		JButton m_Button_AddEleve = new JButton("OK");
 		m_Button_AddEleve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				String[] content = m_textField_AddEleve.getText().split(" ");
+				if(content.length >= 1)
+				{
 				String prenom = content[0];
 				String nom = content[1];
 				ListeEleves.add(new Eleve(prenom, nom));
 				m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
+				m_textField_AddEleve.setText("f");
+				m_ComboBox_ListeEleves.setSelectedItem(m_ComboBox_ListeEleves.getItemAt(m_ComboBox_ListeEleves.getItemCount() - 1));
+				}
+				else
+					m_lbl_Erreur.setVisible(true);
 			}
 		});
 		m_Button_AddEleve.setBounds(302, 181, 72, 29);
@@ -117,6 +131,8 @@ public class NouveauProjet extends JDialog {
 		m_textArea_MotsCles = new JTextArea();
 		m_textArea_MotsCles.setBounds(22, 303, 326, 123);
 		contentPanel.add(m_textArea_MotsCles);
+		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
