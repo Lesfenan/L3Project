@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RechercheProjetWindow extends JFrame {
 
@@ -77,6 +80,16 @@ public class RechercheProjetWindow extends JFrame {
 		contentPane.add(m_Button_Restaurer);
 		
 		JButton m_Button_VoirInformations = new JButton("Voir informations");
+		m_Button_VoirInformations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				Recherche test = new Recherche();
+				ArrayList<String> res = new ArrayList<String>();
+				res = test.rechercher("c");
+				System.out.println(res.size());
+				
+			}
+		});
 		m_Button_VoirInformations.setBounds(170, 243, 145, 29);
 		contentPane.add(m_Button_VoirInformations);
 		
@@ -88,10 +101,6 @@ public class RechercheProjetWindow extends JFrame {
 	public void RechercheNom(String req)
 	{
 		System.out.println(SearchDB.rechercher(req).size() + " " + req);
-		for(String data: SearchDB.rechercher(req))
-		{
-			System.out.println(data);
-		}
-		//m_comboBox_Result.setModel(new DefaultComboBoxModel(SearchDB.rechercher(req).toArray()));
+		m_comboBox_Result.setModel(new DefaultComboBoxModel(SearchDB.rechercher(req).toArray()));
 	}
 }

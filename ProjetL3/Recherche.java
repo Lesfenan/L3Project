@@ -10,12 +10,17 @@ public class Recherche {
         this.connection = Connect.getConnection();
     }
 
+    /**
+     * Recherche dans la base de donnees la liste des noms des eleves
+     * @param r Mot cle permettant de trouver ce que l'on cherche
+     * @return Retourne une arraylist avec tous les résultats de la recherche
+     */
     public ArrayList<String> rechercher(String r) {
         ArrayList<String> resultat = new ArrayList<String>();
         try {
             PreparedStatement state = this.connection.prepareStatement("SELECT nom FROM Eleve WHERE nom LIKE ? ORDER BY nom DESC LIMIT 0,20");
             state.setString(1,r);
-            state.executeUpdate();
+            //state.executeUpdate();
             //L'objet ResultSet contient le resultat de la requete SQL
             ResultSet result = state.executeQuery();
             //On recupere les MetaData

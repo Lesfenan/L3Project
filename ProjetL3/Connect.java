@@ -24,9 +24,11 @@ public class Connect {
       }
       else {
           try {
-              String server = "jdbc:mysql://localhost:3306/mcregiecujsteve";
+              String server = "jdbc:mysql://localhost:8889/projet";
               String dbname = "mcregiecujsteve"; 
+              Class.forName("com.mysql.jdbc.Driver").newInstance();
               conn = DriverManager.getConnection(server,"root","root");
+              System.out.println("Connecté");
           }
           catch(Exception e) {
         	  	System.out.println(e);
