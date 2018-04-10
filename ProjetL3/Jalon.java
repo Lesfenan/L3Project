@@ -22,7 +22,7 @@ public class Jalon {
 	}
 	
 	/**
-	 * Permet à l'enseignant d'entrer une note associe au Jalon et au travail des etudiants
+	 * Permet a l'enseignant d'entrer une note associe au Jalon et au travail des etudiants
 	 * @param argNotation la notation associee au Jalon
 	 */
 	public void setNotation(int argNotation) {	//TODO Note <=20

@@ -46,18 +46,7 @@ public class Authentification extends JDialog
 	 */
 	private JLabel m_Label_ErreurID;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Authentification dialog = new Authentification(null, false);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Creation de la fenetre

@@ -66,21 +66,11 @@ public class NouveauProjet extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private JComboBox m_ComboBox_ListeEleves;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			NouveauProjet dialog = new NouveauProjet(null, false);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Create the dialog.
+
+	/** Creation de la fenetre 
+	 * @param parent fenetre parent
+	 * @param modal bloque la fenetre ou non
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NouveauProjet(Frame parent, boolean modal) 
@@ -140,17 +130,20 @@ public class NouveauProjet extends JDialog {
 			public void actionPerformed(ActionEvent e) 
 			{
 				String[] content = m_textField_AddEleve.getText().split(" ");
-				if(content.length >= 1)
+				try 
 				{
-				String prenom = content[0];
-				String nom = content[1];
-				ListeEleves.add(new Eleve(prenom, nom));
-				m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
-				m_textField_AddEleve.setText("f");
-				m_ComboBox_ListeEleves.setSelectedItem(m_ComboBox_ListeEleves.getItemAt(m_ComboBox_ListeEleves.getItemCount() - 1));
-				}
-				else
+					String prenom = content[0];
+					String nom = content[1];
+					ListeEleves.add(new Eleve(prenom, nom));
+					m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
+					m_textField_AddEleve.setText("");
+					m_ComboBox_ListeEleves.setSelectedItem(m_ComboBox_ListeEleves.getItemAt(m_ComboBox_ListeEleves.getItemCount() - 1));
+				} 
+				catch (Exception e2) 
+				{
 					m_lbl_Erreur.setVisible(true);
+				}
+
 			}
 		});
 		m_Button_AddEleve.setBounds(302, 181, 72, 29);

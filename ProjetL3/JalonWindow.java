@@ -34,21 +34,6 @@ public class JalonWindow extends JFrame {
 	 */
 	private DateTextField m_Date_Calendrier;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JalonWindow frame = new JalonWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Creation de la fenetre

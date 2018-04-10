@@ -91,6 +91,7 @@ public class MainWindow
 
 	/**
 	 * Launch the application.
+	 * @param args Arguments main
 	 */
 	public static void main(String[] args) 
 	{

@@ -19,7 +19,7 @@ public class Connect {
   }
 
   /**
- * La methode getConnection se connecte à la BD et renvoi un objet avec lequelle on peut directement faire des requetes SQL
+ * La methode getConnection se connecte a la BD et renvoi un objet avec lequelle on peut directement faire des requetes SQL
  * 
  * @return Retourne un objet connection
  */

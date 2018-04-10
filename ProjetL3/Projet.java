@@ -26,7 +26,7 @@ public class Projet {
 	/**
 	 * Constructeur de Projet
 	 * @param argSujet sujet du Projet
-	 * @param argEnseignant Enseignant associéé au Projet
+	 * @param argEnseignant Enseignant associee au Projet
 	 */
 	public Projet(String argSujet, Enseignant argEnseignant) {
 		setEnseignant(argEnseignant);

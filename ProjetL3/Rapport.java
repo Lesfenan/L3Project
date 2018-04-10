@@ -1,7 +1,7 @@
 public class Rapport {
 	private String titre;
 	private String description;
-	private int ID; // TODO ID généré automatiquement et non defini âr utilisateur ?
+	private int ID; // TODO ID genere automatiquement et non defini par l utilisateur ?
 	
 	/**
 	 * Constructeur de Rapport

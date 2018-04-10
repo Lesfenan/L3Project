@@ -1,25 +1,28 @@
 
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import com.mysql.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class RechercheProjetWindow extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Objet où vont s'afficher les elements graphiques
 	 */
@@ -29,17 +32,17 @@ public class RechercheProjetWindow extends JFrame {
 	 */
 	private JTextField m_textField_NomProjet;
 	/**
-	 * Combobox des resultats
+	 * liste	 des resultats
 	 */
-	private JComboBox m_comboBox_Result;
+	private JList<String> m_Jlist_Result;
 	/**
 	 * Objet recherche pour rechercher dans la BD
 	 */
 	private Recherche SearchDB;
+	
 
-	/**
-	 * Launch the application.
-	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -66,6 +69,16 @@ public class RechercheProjetWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		m_Jlist_Result = new JList<String>();
+		m_Jlist_Result.setBounds(170, 119, 274, 153);
+		contentPane.add(m_Jlist_Result);
+		
+		JScrollPane m_SP_Tree = new JScrollPane(m_Jlist_Result, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		getContentPane().add(m_SP_Tree);
+		m_SP_Tree.setBounds(170, 119, 274, 153);
+		m_SP_Tree.setAutoscrolls(true);
+		
 		JLabel m_label_NomProjet = new JLabel("Nom du projet");
 		m_label_NomProjet.setBounds(37, 57, 103, 16);
 		contentPane.add(m_label_NomProjet);
@@ -88,7 +101,7 @@ public class RechercheProjetWindow extends JFrame {
 		contentPane.add(m_label_Result);
 		
 		JButton m_Button_Restaurer = new JButton("Restaurer");
-		m_Button_Restaurer.setBounds(327, 243, 117, 29);
+		m_Button_Restaurer.setBounds(0, 243, 140, 29);
 		contentPane.add(m_Button_Restaurer);
 		
 		JButton m_Button_VoirInformations = new JButton("Voir informations");
@@ -102,12 +115,10 @@ public class RechercheProjetWindow extends JFrame {
 				
 			}
 		});
-		m_Button_VoirInformations.setBounds(170, 243, 145, 29);
+		m_Button_VoirInformations.setBounds(0, 214, 145, 29);
 		contentPane.add(m_Button_VoirInformations);
 		
-		m_comboBox_Result = new JComboBox();
-		m_comboBox_Result.setBounds(202, 115, 130, 27);
-		contentPane.add(m_comboBox_Result);
+
 	}
 	
 	/**
@@ -116,7 +127,14 @@ public class RechercheProjetWindow extends JFrame {
 	 */
 	public void RechercheNom(String req)
 	{
-		System.out.println(SearchDB.rechercher(req).size() + " " + req);
-		m_comboBox_Result.setModel(new DefaultComboBoxModel(SearchDB.rechercher(req).toArray()));
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		
+		for(String ele : SearchDB.rechercher(req))
+		{
+			listModel.addElement(ele);
+		}
+		
+		m_Jlist_Result.setModel(listModel);
 	}
 }
