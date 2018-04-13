@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
+import javax.swing.tree.TreePath;
 import javax.swing.JDesktopPane;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -225,6 +225,13 @@ public class MainWindow
 		m_MenuBar_Main.add(m_Menu_Edition);
 		
 		JMenuItem m_MenuItem_Parametre = new JMenuItem("Param\u00E8tre");
+		m_MenuItem_Parametre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				AfficherInformation();
+			}
+		});
 		m_Menu_Edition.add(m_MenuItem_Parametre);
 		
 		JDesktopPane m_Pannel_Frise = new JDesktopPane();
@@ -376,6 +383,14 @@ public class MainWindow
 	 */
 	public static void setM_listeJalon(ArrayList<Jalon> m_listeJalon) {
 		MainWindow.m_listeJalon = m_listeJalon;
+	}
+	
+	public void AfficherInformation()
+	{
+		m_Table_Frise.getSelectedRow();
+		System.out.println(m_Table_Frise.getSelectedRow());
+		TreePath[] paths = tree.getSelectionPaths();
+		System.out.println(paths[0].toString());
 	}
 }
 	

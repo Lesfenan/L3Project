@@ -24,7 +24,6 @@ public class Recherche {
             ResultSet result = state.executeQuery(query);
 
             while (result.next()) {
-                System.out.println("codoodo");
                 String nomEleve = result.getString(1);
                 resultat.add(nomEleve); //TODO separer noms et prenoms
             }
