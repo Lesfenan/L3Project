@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -47,6 +48,8 @@ public class Authentification extends JDialog
 	 * label qui s'affiche quand la connexion a echoue
 	 */
 	private JLabel m_Label_ErreurID;
+	
+	private  ButtonGroup group ;
 
 
 
@@ -57,12 +60,13 @@ public class Authentification extends JDialog
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Authentification(Frame mainWindow, boolean modal) {
+		
 		super(mainWindow, modal);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		User = new HashMap<String, String>();
 		User.put("pogoman23", "salutcava");
 		User.put("a", "a");
-		
+		group = new ButtonGroup();
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setTitle("Connexion");
@@ -107,9 +111,11 @@ public class Authentification extends JDialog
 		m_Radio_Eleve.setSelected(true);
 		m_Radio_Eleve.setBounds(292, 108, 64, 23);
 		contentPanel.add(m_Radio_Eleve);
+		group.add(m_Radio_Eleve);
 		
 		JRadioButton m_Radio_Enseignant = new JRadioButton("Enseignant");
 		m_Radio_Enseignant.setBounds(292, 143, 103, 23);
+		group.add(m_Radio_Enseignant);
 		contentPanel.add(m_Radio_Enseignant);
 		{
 			JPanel buttonPane = new JPanel();

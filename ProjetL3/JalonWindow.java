@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
+import java.util.Random;
 import java.awt.event.WindowEvent;
 
 public class JalonWindow extends JFrame {
@@ -98,7 +99,7 @@ public class JalonWindow extends JFrame {
 	 */
 	public void addJalon()
 	{
-		Jalon nouveauJalon = new Jalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate());
+		Jalon nouveauJalon = new Jalon(new Random().nextInt(10000), m_textField_Intitule.getText(), m_Date_Calendrier.getDate(), 0, -1);
 		MainWindow.getM_listeJalon().add(nouveauJalon);
 	}
 	

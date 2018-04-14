@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,15 +20,16 @@ public class EnseignantController {
         ArrayList<Enseignant> resultat = new ArrayList<Enseignant>();
         try {
             
-            String query = "SELECT DISTINCT nom, prenom FROM Enseignant ORDER BY nom ASC";
+            String query = "SELECT DISTINCT id, nom, prenom FROM Enseignant ORDER BY nom ASC";
             Statement state = this.connection.createStatement();
 
             ResultSet result = state.executeQuery(query);
             
             while (result.next()) {                
-                String nomEnseignant = result.getString(1);
-                String prenomEnseignant = result.getString(2);
-                Enseignant enseignant = new Enseignant(nomEnseignant,prenomEnseignant);
+                int idEnseignant = result.getInt(1);
+                String nomEnseignant = result.getString(2);
+                String prenomEnseignant = result.getString(3);
+                Enseignant enseignant = new Enseignant(idEnseignant,nomEnseignant,prenomEnseignant);
                 System.out.println(enseignant.toString());
                 resultat.add(enseignant); //TODO separer noms et prenoms
             }

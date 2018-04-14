@@ -16,7 +16,7 @@ public class LoginController {
      */
 
     public Personne login(String nom, String pass, String type) {
-        Personne p = new Personne("Login inconnu","");
+        Personne p = new Personne(0,"Login inconnu","");
         try {
             String query = null;
 
@@ -31,9 +31,10 @@ public class LoginController {
             ResultSet result = state.executeQuery(query);
             
             if(result.next()) {
+                int idP = result.getInt(1);
                 String nomP = result.getString(3);
                 String prenomP = result.getString(4);
-                p = new Personne(nomP,prenomP);
+                p = new Personne(idP,nomP,prenomP);
             }
 
         }

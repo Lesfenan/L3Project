@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -81,12 +83,8 @@ public class NouveauProjet extends JDialog {
 		
 		ListeEleves = new ArrayList<Eleve>();
 		
-		ListeProvisoireEns = new ArrayList<Enseignant>();
-		ListeProvisoireEns.add(new Enseignant("Jean", "Dupont"));
-		ListeProvisoireEns.add(new Enseignant("Judith", "Benzakki"));
-		ListeProvisoireEns.add(new Enseignant("Fred", "Vasseur"));
-		ListeProvisoireEns.add(new Enseignant("Jeanne", "Bertoux"));
-		
+		EnseignantController Ens = new EnseignantController();
+		ListeProvisoireEns = Ens.getListOfEnseignant();
 		
 		setBounds(100, 100, 380, 493);
 		getContentPane().setLayout(new BorderLayout());
@@ -206,7 +204,6 @@ public class NouveauProjet extends JDialog {
 		Statement state = conn.createStatement();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
-		System.out.println(calendar.YEAR);
 		state.executeUpdate("INSERT INTO Projet ( `annee`) VALUES ( '"+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH+"');");
 			
 		} catch (SQLException e1) {
@@ -214,13 +211,11 @@ public class NouveauProjet extends JDialog {
 			e1.printStackTrace();
 		}
 
-		
 
-		Projet newProject = new Projet(m_textField_NomProjet.getText(), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()));
+		Projet newProject = new Projet(new Random().nextInt(1000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves, null);
 		
 		for(Eleve e : ListeEleves)
 		{
-			System.out.println(e.getPrenom());
 			newProject.addEleve(e);
 		}
 		

@@ -1,22 +1,46 @@
 public class Personne {
-	private final String nom;
-	private final String prenom;
+	private int id;
+	private String nom;
+	private String prenom;
 	
-	/**
-	 * @param argNom Prend en parametre le nom de la personne
-	 * @param argPrenom Prend en second parametre le prenom de la personne
-	 */
-	public Personne(String argNom,String argPrenom) {
+	public Personne(int argId, String argNom,String argPrenom) {
+		id = argId;
 		nom = argNom;
 		prenom = argPrenom;
+	}
+
+	public Personne(String argNom,String argPrenom) {
+		id = -1;
+		nom = argNom;
+		prenom = argPrenom;
+	}
+
+	public void setNom(String n) {
+		this.nom = n;
+	}
+
+	public void setPrenom(String p) {
+		this.prenom = p;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNom() {
 		return nom;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public String getPrenom() {
 		return prenom;
+	}
+
+	public String toString() {
+		return nom + " " + prenom;
 	}
 	
 
