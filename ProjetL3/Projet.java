@@ -12,6 +12,8 @@ public class Projet {
 	 * motsCles associes au Projet et facilitant la recherche
 	 */
 	private ArrayList<String> motsCles;
+
+
 	private Enseignant enseignant;
 	/**
 	 * Eleves associes au Projet
@@ -104,5 +106,11 @@ public class Projet {
 		this.enseignant = enseignant;
 	}
 	
-	
+	public ArrayList<String> getMotsCles() {
+		return motsCles;
+	}
+
+	public void setMotsCles(ArrayList<String> motsCles) {
+		this.motsCles = motsCles;
+	}
 }

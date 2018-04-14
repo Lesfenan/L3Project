@@ -24,6 +24,10 @@ import java.awt.Cursor;
 import javax.swing.JTree;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import java.awt.Font;
 // Main
 /**
  * @author marwanoriginals
@@ -87,6 +91,19 @@ public class MainWindow
 	 * Objet permettant de bloquer la fenetre
 	 */
 	public static Object lock = new Object();
+	/**
+	 * Nom du projet
+	 */
+	private JLabel m_lbl_NomProjet;
+	/**
+	 * Nom enseignant
+	 */
+	private JLabel m_lbl_Enseignant;
+	private JLabel m_lbl_ListeEleves;
+	private JList<String> m_list_listeEleves;
+	private JList<String> m_list_listeMotCles;
+	private JLabel m_lbl_Annee;
+	private JLabel m_lbl_MotCls;
 
 
 	/**
@@ -177,6 +194,9 @@ public class MainWindow
 			
 			}
 		});
+		
+
+
 		m_ContextMenu_AddJalon.add(m_MenuItem_AddJalons);
 		frame.getContentPane().add(m_SP_Tree);
 		m_SP_Tree.setBounds(0, 35, 229, 465);
@@ -185,6 +205,7 @@ public class MainWindow
 		
 		
 		m_Label_Information = new JLabel("Informations");
+		m_Label_Information.setFont(new Font("Lao Sangam MN", Font.BOLD, 13));
 		m_Label_Information.setBounds(10, 10, 100, 14);
 		
 		m_Pannel_Information = new JPanel();
@@ -192,6 +213,21 @@ public class MainWindow
 		m_Pannel_Information.setLayout(null);
 		m_Pannel_Information.add(m_Label_Information);		
 		m_scrollPanel_Information = new JScrollPane(m_Pannel_Information,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); //////
+		
+		m_lbl_NomProjet = new JLabel("Nom du projet : ");
+		m_lbl_NomProjet.setBounds(128, 9, 296, 16);
+		m_Pannel_Information.add(m_lbl_NomProjet);
+		
+		m_lbl_Enseignant = new JLabel("Enseignant : ");
+		m_lbl_Enseignant.setBounds(10, 58, 276, 16);
+		m_Pannel_Information.add(m_lbl_Enseignant);
+		
+		m_lbl_ListeEleves = new JLabel("Liste Eleves :");
+		m_lbl_ListeEleves.setBounds(512, 9, 122, 16);
+		m_Pannel_Information.add(m_lbl_ListeEleves);
+		
+
+		
 		frame.getContentPane().add(m_scrollPanel_Information);
 		m_scrollPanel_Information.setBounds(0, 499, 1274, 171);
 		m_scrollPanel_Information.setAutoscrolls(true);
@@ -237,9 +273,18 @@ public class MainWindow
 		JDesktopPane m_Pannel_Frise = new JDesktopPane();
 		m_Pannel_Frise.setBackground(Color.GREEN);
 		m_Pannel_Frise.setBounds(229, 0, 1035, 500);
+
+		
 		
 		
 		m_Table_Frise = new JTable();
+		m_Table_Frise.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				AfficherInformationTable();
+			}
+		});
 		m_Table_Frise.setRowHeight(38);
 		m_Table_Frise.setFillsViewportHeight(true);
 		m_Table_Frise.setDoubleBuffered(true);
@@ -248,16 +293,20 @@ public class MainWindow
 		m_Table_Frise.setSurrendersFocusOnKeystroke(true);
 		m_Table_Frise.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
+				{null},
 			},
 			new String[] {
-				"Projets", "Diagramme de classe - Date limite : 23/02/18"
+				"Projets"
 			}
 		));
 		m_Table_Frise.getColumnModel().getColumn(0).setMinWidth(150);
-		m_Table_Frise.getColumnModel().getColumn(1).setMinWidth(250);
 		m_Table_Frise.setBounds(0, 0, 1049, 500);
-		m_Table_Frise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		m_Table_Frise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	
+		for (int c = 0; c < m_Table_Frise.getColumnCount(); c++)
+		{
+		    Class<?> col_class = m_Table_Frise.getColumnClass(c);
+		    m_Table_Frise.setDefaultEditor(col_class, null);        // remove editor
+		}
 		m_Pannel_Frise.add(m_Table_Frise);
 
 		m_SP = new JScrollPane(m_Table_Frise, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -269,8 +318,32 @@ public class MainWindow
 		JLabel m_Label_NomDuProjet = new JLabel("Name");
 		m_Label_NomDuProjet.setBounds(0, 0, 46, 14);
 		frame.getContentPane().add(m_Label_NomDuProjet);
-		
 
+		
+		m_list_listeEleves = new JList<String>();
+		m_list_listeEleves.setBounds(600, 9, 238, 137);
+		m_Pannel_Information.add(m_list_listeEleves);
+		
+		JScrollPane m_SP_listeEleves = new JScrollPane(m_list_listeEleves,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		m_SP_listeEleves.setBounds(600, 9, 238, 137);
+		m_Pannel_Information.add(m_SP_listeEleves);
+		m_SP_listeEleves.setAutoscrolls(true);
+		
+		m_list_listeMotCles = new JList<String>();
+		m_list_listeMotCles.setBounds(950, 9, 238, 137);
+		
+		JScrollPane m_SP_listeMotCles = new JScrollPane(m_list_listeMotCles,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		m_SP_listeMotCles.setBounds(950, 9, 238, 137);
+		m_Pannel_Information.add(m_SP_listeMotCles);
+		m_SP_listeMotCles.setAutoscrolls(true);
+		
+		m_lbl_Annee = new JLabel("Annee : ");
+		m_lbl_Annee.setBounds(10, 117, 372, 16);
+		m_Pannel_Information.add(m_lbl_Annee);
+		
+		m_lbl_MotCls = new JLabel("Mot clés : ");
+		m_lbl_MotCls.setBounds(886, 9, 100, 16);
+		m_Pannel_Information.add(m_lbl_MotCls);
 	///////START///////////
 		showAuth();
 	}
@@ -294,7 +367,14 @@ public class MainWindow
 		Eleves=Eleves.replaceAll(", $","");
 		
 		model.setValueAt(Eleves, getM_listeProjet().size() - 1, 0);
+		
+		for (int c = 0; c < m_Table_Frise.getColumnCount(); c++)
+		{
+		    Class<?> col_class = m_Table_Frise.getColumnClass(c);
+		    m_Table_Frise.setDefaultEditor(col_class, null);        // remove editor
+		}
 	}
+	
 	
 	/**
 	 * Ajoute un jalon dans la treelist
@@ -310,7 +390,6 @@ public class MainWindow
 		model.addColumn(getM_listeJalon().get(getM_listeJalon().size() - 1).getIntitule());
 		
 		/*
-		
 		for(int i = 0; i<10; i++)
 		{
 			DefaultMutableTreeNode jalons = new DefaultMutableTreeNode(new Random().nextInt(2000));
@@ -352,8 +431,8 @@ public class MainWindow
 	 */
 	private void showAuth()
 	{
-		Authentification test = new Authentification(this.frame, false);
-		test.setVisible(true);
+		Authentification login = new Authentification(this.frame, false);
+		login.setVisible(true);
 	}
 	
 	
@@ -389,8 +468,38 @@ public class MainWindow
 	{
 		m_Table_Frise.getSelectedRow();
 		System.out.println(m_Table_Frise.getSelectedRow());
+		System.out.println(m_Table_Frise.getSelectedColumn());
 		TreePath[] paths = tree.getSelectionPaths();
 		System.out.println(paths[0].toString());
+	}
+	
+	public void AfficherInformationTable()
+	{
+		if(m_Table_Frise.getSelectedRow() < 0)
+		{
+			return;
+		}
+		
+		Projet selected = m_listeProjet.get(m_Table_Frise.getSelectedRow());
+		
+		m_lbl_NomProjet.setText("Nom du projet : " + selected.getSujet());
+		m_lbl_Enseignant.setText("Enseignant : " + selected.getEnseignant().getPrenom() + " " + selected.getEnseignant().getNom());
+		m_lbl_Annee.setText("Annee : " + selected.getAnnee());
+		
+		DefaultListModel<String> nomPrenomEleves = new DefaultListModel<String>();
+		for(Eleve data : selected.getCollectionEleves())
+		{
+			nomPrenomEleves.addElement(data.getPrenom() + " " + data.getNom());
+		}
+		
+		m_list_listeEleves.setModel(nomPrenomEleves);
+		
+		DefaultListModel<String> mc = new DefaultListModel<String>();
+		for(String data : selected.getMotsCles())
+		{
+			mc.addElement(data);
+		}
+		m_list_listeMotCles.setModel(mc);
 	}
 }
 	

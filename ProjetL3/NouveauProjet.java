@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -222,7 +224,15 @@ public class NouveauProjet extends JDialog {
 			newProject.addEleve(e);
 		}
 		
-		newProject.addMotCle(m_textArea_MotsCles.getText());
+		String[] mcArray = m_textArea_MotsCles.getText().split(",");
+		
+		
+		List<String> mc = Arrays.asList(mcArray);
+		for(String data : mc)
+		{
+			newProject.getMotsCles().add(data);
+		}
+
 		
 		
 		
