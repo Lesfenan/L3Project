@@ -17,6 +17,8 @@ import java.util.Map;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 
 public class Authentification extends JDialog 
 {
@@ -55,7 +57,7 @@ public class Authentification extends JDialog
 	 */
 	public Authentification(Frame mainWindow, boolean modal) {
 		super(mainWindow, modal);
-		setUndecorated(true);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		User = new HashMap<String, String>();
 		User.put("pogoman23", "salutcava");
 		User.put("a", "a");
@@ -63,7 +65,7 @@ public class Authentification extends JDialog
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);
 		setTitle("Connexion");
-		setBounds(100, 100, 314, 148);
+		setBounds(100, 100, 401, 238);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -92,6 +94,22 @@ public class Authentification extends JDialog
 		m_Label_ErreurID.setBounds(86, 87, 159, 16);
 		m_Label_ErreurID.setVisible(false);
 		contentPanel.add(m_Label_ErreurID);
+		
+		JComboBox m_comboBox_Classe = new JComboBox();
+		m_comboBox_Classe.setBounds(20, 121, 83, 27);
+		contentPanel.add(m_comboBox_Classe);
+		m_comboBox_Classe.addItem("L3");
+		m_comboBox_Classe.addItem("M1");
+		m_comboBox_Classe.addItem("M2");
+		
+		JRadioButton m_Radio_Eleve = new JRadioButton("Eleve");
+		m_Radio_Eleve.setSelected(true);
+		m_Radio_Eleve.setBounds(292, 108, 64, 23);
+		contentPanel.add(m_Radio_Eleve);
+		
+		JRadioButton m_Radio_Enseignant = new JRadioButton("Enseignant");
+		m_Radio_Enseignant.setBounds(292, 143, 103, 23);
+		contentPanel.add(m_Radio_Enseignant);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
