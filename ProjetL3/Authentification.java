@@ -55,6 +55,7 @@ public class Authentification extends JDialog
 	 * @param mainWindow la fenetre parent
 	 * @param modal permet de bloquer ou non la fenetre parent
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Authentification(Frame mainWindow, boolean modal) {
 		super(mainWindow, modal);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
