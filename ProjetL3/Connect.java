@@ -13,6 +13,7 @@ public class Connect {
   protected ArrayList<Enseignant> collectionEnseignantBD;
   protected ArrayList<Jalon> collectionJalonsBD;
   private static Connection conn = null;
+  private static String OS = System.getProperty("os.name").toLowerCase();
 
   public Connect() {
 
@@ -24,21 +25,45 @@ public class Connect {
  * @return Retourne un objet connection
  */
 public static Connection getConnection() {
-      if(conn != null) {
-          return conn;
+	try {  
+	if(conn != null) {
       }
-      else {
-          try {
+      
+      else if (isMac()) {
+          
               String server = "jdbc:mysql://localhost:8889/projet";
-              String dbname = "mcregiecujsteve"; 
               Class.forName("com.mysql.jdbc.Driver").newInstance();
               conn = DriverManager.getConnection(server,"root","root");
               System.out.println("Connection");
-          }
-          catch(Exception e) {
-        	  	System.out.println(e);
-          }
-          return conn;  
+           
       }
-  }      
+      
+      else {
+
+              String server = "jdbc:mysql://localhost:3306/projet";
+              Class.forName("com.mysql.jdbc.Driver").newInstance();
+              conn = DriverManager.getConnection(server,"root","root");
+              System.out.println("Connection");
+          
+ 
+    	  
+      }
+      }
+      catch(Exception e) {
+  	  	System.out.println(e);
+    }
+    return conn; 
+  }  
+
+	public static boolean isWindows() {
+	
+		return (OS.indexOf("win") >= 0);
+	
+	}
+
+	public static boolean isMac() {
+	
+		return (OS.indexOf("mac") >= 0);
+	
+	}
 }
