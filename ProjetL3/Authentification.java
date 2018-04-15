@@ -49,6 +49,10 @@ public class Authentification extends JDialog
 	 */
 	private JLabel m_Label_ErreurID;
 	
+	private JRadioButton m_Radio_Enseignant = new JRadioButton();
+	
+	private JRadioButton m_Radio_Eleve = new JRadioButton();
+	
 	private  ButtonGroup group ;
 
 
@@ -153,17 +157,21 @@ public class Authentification extends JDialog
 	 */
 	private void verifyConnect()
 	{
+		Personne connectedPerson;
 		String pw = String.valueOf(m_JPassword_Password.getPassword());
-		if(User.containsKey(m_textField_ID.getText()))
-		{
-			if(User.get(m_textField_ID.getText()).equals(pw))
-			{
-				dispose();
-			}
-			else
-				m_Label_ErreurID.setVisible(true);
+		String login = String.valueOf(m_textField_ID.getText());
+		if (m_Radio_Eleve.isSelected()){
+			connectedPerson = new LoginController().login(login, pw, "Eleve");
 		}
-		else
-			m_Label_ErreurID.setVisible(true);
+		else {
+			connectedPerson = new LoginController().login(login, pw, "Enseignant");
+		}
+		
+		if (connectedPerson.getId() != 0){
+			dispose();
+		}
+				
+		
+		
 	}
 }

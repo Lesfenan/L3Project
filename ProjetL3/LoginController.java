@@ -21,7 +21,7 @@ public class LoginController {
             String query = null;
 
             if(type == "Eleve") {
-                query = "SELECT * FROM Eleve WHERE nom='"+nom+"' AND pass='"+pass+"'";    
+                query = "SELECT * FROM Eleve WHERE nom='"+nom+"' AND pass='"+pass+"'";    //TODO Ici il y a un probleme si 2 utilisateurs ont le meme nom et mot de passe
             }
             else {
                 query = "SELECT * FROM Enseignant WHERE nom='"+nom+"' AND pass='"+pass+"'";
