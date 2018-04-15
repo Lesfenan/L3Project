@@ -34,6 +34,7 @@ public class JalonWindow extends JFrame {
 	 * Element permettant d'afficher un calendrier
 	 */
 	private DateTextField m_Date_Calendrier;
+	
 
 
 	/**
@@ -41,6 +42,7 @@ public class JalonWindow extends JFrame {
 	 */
 	public JalonWindow() 
 	{
+		
 		addWindowFocusListener(new WindowFocusListener() {
 			public void windowGainedFocus(WindowEvent e) {
 			}
@@ -101,6 +103,11 @@ public class JalonWindow extends JFrame {
 	{
 		Jalon nouveauJalon = new Jalon(new Random().nextInt(10000), m_textField_Intitule.getText(), m_Date_Calendrier.getDate(), 0, -1);
 		MainWindow.getM_listeJalon().add(nouveauJalon);
+		
+		for(Projet p : MainWindow.getM_listeProjet())
+		{
+			p.addJalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate());
+		}
 	}
 	
     /**

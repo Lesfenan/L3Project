@@ -28,11 +28,12 @@ public class NotationWindow extends JFrame {
 	private Jalon jalon;
 	private Projet projet;
 	private JList<String> m_list_listeEleves;
+	private int index;
 
 	/**
 	 * Create the frame.
 	 */
-	public NotationWindow(Jalon J, Projet p) {
+	public NotationWindow(Jalon J, Projet p, int i) {
 		addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) 
@@ -44,6 +45,7 @@ public class NotationWindow extends JFrame {
 		
 		jalon = J;
 		projet = p;
+		index = i;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -128,7 +130,7 @@ public class NotationWindow extends JFrame {
 		
 		if(note <= 20 || note >= 0)
 		{
-			jalon.setNotation(note);
+			projet.getCollectionJalons().get(index).setNotation(note);
 			dispose();
 		}
 	}

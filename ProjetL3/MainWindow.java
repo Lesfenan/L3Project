@@ -202,6 +202,7 @@ public class MainWindow
 			@Override
 			public void mousePressed(MouseEvent e)
 			{
+
   				JalonWindow nouveauJalon = new JalonWindow();
 				nouveauJalon.setVisible(true);
 				nouveauJalon.setAlwaysOnTop(true);
@@ -585,9 +586,11 @@ public class MainWindow
 		m_lbl_NomDuJalon.setText("Nom du jalon : " + selected.getIntitule());
 		m_lbl_DateDeFin.setText("Date de fin : " + selected.getDateFin().toString());
 		m_lbl_AvancementDuProjet.setText("Avancement du projet : " +  selected.getProgression());
-		if(selected.getNotation() >= 0)
+		
+		int note = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getNotation();
+		if(note >= 0)
 		{
-			m_lbl_NoteDuProjet.setText("Note du projet : " + selected.getNotation());
+			m_lbl_NoteDuProjet.setText("Note du projet : " + note);
 		}
 		else
 			m_lbl_NoteDuProjet.setText("Pas de note entrée");

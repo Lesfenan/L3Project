@@ -228,7 +228,10 @@ public class NouveauProjet extends JDialog {
 			newProject.getMotsCles().add(data);
 		}
 
-		
+		for(Jalon j : MainWindow.getM_listeJalon())
+		{
+			newProject.addJalon(j.getIntitule(), j.getDateFin());
+		}
 		
 		
 		MainWindow.getM_listeProjet().add(newProject);
