@@ -98,6 +98,8 @@ public class NotationWindow extends JFrame {
 		});
 		btnOk.setBounds(327, 234, 117, 29);
 		contentPane.add(btnOk);
+		
+		ajouterNote();
 	}
 	
 	public void ajouterNote()
@@ -118,7 +120,7 @@ public class NotationWindow extends JFrame {
 	{
 		String noteString = m_textField_Note.getText();
 		int note = -1;
-		if(noteString.equals(""))
+		if(!noteString.equals(""))
 		{
 			try 
 			{

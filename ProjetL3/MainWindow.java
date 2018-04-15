@@ -183,13 +183,6 @@ public class MainWindow
 		tree = new JTree(root);
 		tree.setShowsRootHandles(true);
 		tree.setBounds(0, 74, 229, 391);
-		tree.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (!e.isPopupTrigger()) {
-	
-				} 
-			}
-		});
 		
 		m_SP_Tree = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
@@ -251,7 +244,7 @@ public class MainWindow
 		m_Pannel_InfoJalon.add(m_lbl_NomDuJalon);
 		
 		m_lbl_DateDeFin = new JLabel("Date de fin : ");
-		m_lbl_DateDeFin.setBounds(6, 113, 278, 16);
+		m_lbl_DateDeFin.setBounds(6, 113, 465, 16);
 		m_Pannel_InfoJalon.add(m_lbl_DateDeFin);
 		
 		m_lbl_AvancementDuProjet = new JLabel("Avancement du projet : ");
@@ -436,6 +429,16 @@ public class MainWindow
 					}
 				});
 				m_ContextMenu_AddJalon.add(m_MenuItem_InfoJalon);
+				
+				JMenuItem m_menuItem_Noter = new JMenuItem("Noter");
+				m_menuItem_Noter.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) 
+					{
+						ChangeNote();
+					}
+				});
+				m_ContextMenu_AddJalon.add(m_menuItem_Noter);
 	///////START///////////
 		showAuth();
 	}
@@ -649,6 +652,19 @@ public class MainWindow
 
 			DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
 			model.setValueAt(m_textField_Description.getText(), m_Table_Frise.getSelectedRow(), selectedJalon + 1);
+	}
+	
+	public void ChangeNote()
+	{
+		 DefaultMutableTreeNode selectedNode = 
+			       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent(); 
+		if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1 || root.getIndex(selectedNode) < 0 || root.getIndex(selectedNode) > m_listeJalon.size() - 1)
+		{
+			return;
+		}
+		
+		NotationWindow note = new NotationWindow(m_listeJalon.get(root.getIndex(selectedNode)), m_listeProjet.get(m_Table_Frise.getSelectedRow()), root.getIndex(selectedNode));	
+		note.setVisible(true);
 	}
 }
 	
