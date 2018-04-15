@@ -172,6 +172,5 @@ public class Authentification extends JDialog
 		}
 				
 		
-		
 	}
 }
