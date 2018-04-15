@@ -5,24 +5,25 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class RapportWindow extends JFrame  {
+import javafx.stage.FileChooser;
+
+import java.awt.event.ActionEvent;
+
+public class RapportWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField m_textField_Path;
 	
-	JButton browseBouton = new JButton("Parcourir");
-	
 	JFileChooser fcSauvegarde = new JFileChooser();
-	
-	String repertoire ;
+	String repertoire;
+	private JButton m_btn_Browse;
 
 	/**
 	 * Launch the application.
@@ -57,15 +58,16 @@ public class RapportWindow extends JFrame  {
 		contentPane.add(m_textField_Path);
 		m_textField_Path.setColumns(10);
 		
-		JButton m_btn_Parcourir = new JButton("Parcourir");
-		m_btn_Parcourir.setBounds(286, 18, 117, 29);
-		contentPane.add(m_btn_Parcourir);
+
 		
 		JButton m_btn_Ok = new JButton("OK");
 		m_btn_Ok.setBounds(286, 51, 117, 29);
 		contentPane.add(m_btn_Ok);
-		browseBouton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		
+		m_btn_Browse = new JButton("Browse");
+		m_btn_Browse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
 				System.out.println("Parcours !");
 				String repertoireSreduit;
 
@@ -85,9 +87,11 @@ public class RapportWindow extends JFrame  {
 				          System.out.println(repertoire);
 				          //labelRepertoire.setText(repertoireSreduit);
 					 }
-				}
-			
+			}
 		});
+		m_btn_Browse.setBounds(286, 18, 117, 29);
+		contentPane.add(m_btn_Browse);
+
 		
 	}
 	
