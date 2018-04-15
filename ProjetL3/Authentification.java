@@ -49,9 +49,9 @@ public class Authentification extends JDialog
 	 */
 	private JLabel m_Label_ErreurID;
 	
-	private JRadioButton m_Radio_Enseignant = new JRadioButton();
+	private JRadioButton m_Radio_Enseignant;
 	
-	private JRadioButton m_Radio_Eleve = new JRadioButton();
+	private JRadioButton m_Radio_Eleve;
 	
 	private  ButtonGroup group ;
 
@@ -111,13 +111,13 @@ public class Authentification extends JDialog
 		m_comboBox_Classe.addItem("M1");
 		m_comboBox_Classe.addItem("M2");
 		
-		JRadioButton m_Radio_Eleve = new JRadioButton("Eleve");
+		m_Radio_Eleve = new JRadioButton("Eleve");
 		m_Radio_Eleve.setSelected(true);
 		m_Radio_Eleve.setBounds(292, 108, 64, 23);
 		contentPanel.add(m_Radio_Eleve);
 		group.add(m_Radio_Eleve);
 		
-		JRadioButton m_Radio_Enseignant = new JRadioButton("Enseignant");
+		m_Radio_Enseignant = new JRadioButton("Enseignant");
 		m_Radio_Enseignant.setBounds(292, 143, 103, 23);
 		group.add(m_Radio_Enseignant);
 		contentPanel.add(m_Radio_Enseignant);
@@ -160,6 +160,7 @@ public class Authentification extends JDialog
 		Personne connectedPerson;
 		String pw = String.valueOf(m_JPassword_Password.getPassword());
 		String login = String.valueOf(m_textField_ID.getText());
+		
 		if (m_Radio_Eleve.isSelected()){
 			connectedPerson = new LoginController().login(login, pw, "Eleve");
 		}
@@ -167,8 +168,12 @@ public class Authentification extends JDialog
 			connectedPerson = new LoginController().login(login, pw, "Enseignant");
 		}
 		
+		
 		if (connectedPerson.getId() != 0){
 			dispose();
+		}
+		else {
+			m_Label_ErreurID.setVisible(true);
 		}
 				
 		
