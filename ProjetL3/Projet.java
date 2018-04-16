@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Projet {
     private int id;
-    private String sujet;
+	private String sujet;
     private int annee;
     private ArrayList<String> motsCles;
 
@@ -18,25 +18,44 @@ public class Projet {
 	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon) {
         setCollectionEleves(argEleve);
         setEnseignant(argEnseignant);
+        
+        collectionJalons = argJalon;
+        collectionEleves = argEleve;
+        
+        
+        
         annee = argAnnee;
         sujet = argSujet;
         id = argId;
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        collectionEleves = new ArrayList<Eleve>();
         motsCles = new ArrayList<String>();
         motsCles.add(argSujet);
+    }
+	
+	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve) {
+        setCollectionEleves(argEleve);
+        setEnseignant(argEnseignant);
+        
         collectionJalons = new ArrayList<Jalon>();
+        collectionEleves = new ArrayList<Eleve>();
+   
+        
+        annee = argAnnee;
+        sujet = argSujet;
+        id = argId;
+        annee = Calendar.getInstance().get(Calendar.YEAR);
+        motsCles = new ArrayList<String>();
+        motsCles.add(argSujet);
     }
     
     public void addMotCle(String argMotCle) {
         motsCles.add(argMotCle);
     }
     
-    public void addJalon(String intitule, java.util.Date date){
+    public void addJalon(String intitule, java.util.Date date, String classe){
 
         JalonController j = new JalonController();
-        Jalon newJalon = j.addJalonToDB(intitule, date, this.id);
-        //Jalon newJalon = new Jalon(intitule,dateFin);
+        Jalon newJalon = j.addJalonToDB(intitule, date, this.id, classe);
         collectionJalons.add(newJalon);
     }
     
@@ -49,7 +68,7 @@ public class Projet {
     }
 
     public ArrayList<Eleve> getCollectionEleves() {
-        return collectionEleves;
+        return this.collectionEleves;
     }
 
     public void setCollectionEleves(ArrayList<Eleve> collectionEleves) {
@@ -83,11 +102,19 @@ public class Projet {
 	}
     
     public ArrayList<Jalon> getCollectionJalons() {
-		return collectionJalons;
+		return this.collectionJalons;
 	}
 
 	public void setCollectionJalons(ArrayList<Jalon> collectionJalons) {
 		this.collectionJalons = collectionJalons;
 	}
     
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 }

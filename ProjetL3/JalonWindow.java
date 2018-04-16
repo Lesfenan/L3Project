@@ -101,12 +101,12 @@ public class JalonWindow extends JFrame {
 	 */
 	public void addJalon()
 	{
-		Jalon nouveauJalon = new Jalon(new Random().nextInt(10000), m_textField_Intitule.getText(), m_Date_Calendrier.getDate(), 0, -1);
+		Jalon nouveauJalon = new Jalon(new Random().nextInt(10000), m_textField_Intitule.getText(), m_Date_Calendrier.getDate(), 0, -1, "L3");
 		MainWindow.getM_listeJalon().add(nouveauJalon);
 		
 		for(Projet p : MainWindow.getM_listeProjet())
 		{
-			p.addJalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate());
+			p.addJalon(m_textField_Intitule.getText(), m_Date_Calendrier.getDate(), "L3");
 		}
 	}
 	

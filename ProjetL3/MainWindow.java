@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Vector;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -162,10 +164,7 @@ public class MainWindow
 	 * Initialise les elements de la fenetre
 	 */
 	private void initialize() 
-	{
-		m_listeProjet = new ArrayList<Projet>();
-		m_listeJalon = new ArrayList<Jalon>();
-		
+	{		
 		selectedJalon = -1;
 		
 		frame = new JFrame();
@@ -337,7 +336,6 @@ public class MainWindow
 		m_Table_Frise.setSurrendersFocusOnKeystroke(true);
 		m_Table_Frise.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null},
 			},
 			new String[] {
 				"Projets"
@@ -441,6 +439,23 @@ public class MainWindow
 				m_ContextMenu_AddJalon.add(m_menuItem_Noter);
 	///////START///////////
 		showAuth();
+		m_listeProjet = new ArrayList<Projet>();
+		ProjetController p = new ProjetController();
+		for(Projet data : p.getListOfProjet("L3"))
+		{
+			m_listeProjet.add(data);
+			addProject();
+		}
+		m_listeJalon = new ArrayList<Jalon>();
+
+		for(Jalon data : m_listeProjet.get(0).getCollectionJalons())
+		{
+			m_listeJalon.add(data);
+			addJalon();
+		}
+
+	
+		
 	}
 	
 	/**
@@ -451,24 +466,19 @@ public class MainWindow
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
 		//Vector<String> test = new Vector<>();
 		
-		Projet newProject = getM_listeProjet().get(getM_listeProjet().size() - 1);
-		
+		Projet newProject = getM_listeProjet().get(m_listeProjet.size() - 1);
+		 Vector row = new Vector();
+		 
 		String Eleves = "";
-		
+
 		for(Eleve e : newProject.getCollectionEleves())
 		{
 			Eleves += e.getPrenom() + " " + e.getNom() + ", ";
 		}
 		Eleves=Eleves.replaceAll(", $","");
-		model.addRow(new Object[] {null});
-		model.setValueAt(Eleves, getM_listeProjet().size() - 1, 0);
-		try 
-		{
-			model.removeRow(getM_listeProjet().size());
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+		row.add(Eleves);
+		model.addRow(row);
+		//model.setValueAt(row, getM_listeProjet().size() - 1, 0);
 		
 		for (int c = 0; c < m_Table_Frise.getColumnCount(); c++)
 		{

@@ -96,7 +96,7 @@ public class ProjetController {
                 int notationJalon = result.getInt(3);
                 int progressionJalon = result.getInt(4);
                 java.util.Date finJalon = result.getDate(5);
-                Jalon j = new Jalon(idJalon, intituleJalon, finJalon, progressionJalon, notationJalon);
+                Jalon j = new Jalon(idJalon, intituleJalon, finJalon, progressionJalon, notationJalon, "L3");
                 System.out.println(j.getIntitule());
                 jl.add(j);
             }

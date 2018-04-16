@@ -15,13 +15,13 @@ public class JalonController {
      * @return Retourne une arraylist avec tous les résultats de la recherche
      */
 
-    public Jalon addJalonToDB(String intitule, java.util.Date dateFin, int idProjet) {
-        Jalon j = new Jalon(-1,intitule,dateFin,0,-1);
+    public Jalon addJalonToDB(String intitule, java.util.Date dateFin, int idProjet, String classe) {
+        Jalon j = new Jalon(-1,intitule,dateFin,0,-1,classe);
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(dateFin);
             try {
 
-                String insert = "INSERT INTO Jalon(intitule, dateFin, projet) VALUES ('" + intitule + "', '" + date + "', '" + idProjet + "');";
+                String insert = "INSERT INTO Jalon(intitule, dateFin, projet, classe) VALUES ('" + intitule + "', '" + date + "', '" + idProjet + "', '" + classe + "');";
                 Statement state = this.connection.createStatement();
 
                 state.executeUpdate(insert);
