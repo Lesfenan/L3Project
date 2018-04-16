@@ -34,7 +34,11 @@ public class LoginController {
                 int idP = result.getInt(1);
                 String nomP = result.getString(3);
                 String prenomP = result.getString(4);
-                p = new Personne(idP,nomP,prenomP);
+                if(type == "Eleve")
+                	p = new Eleve(idP,nomP,prenomP);
+                else 
+                	p = new Personne(idP,nomP,prenomP);
+                
             }
 
         }

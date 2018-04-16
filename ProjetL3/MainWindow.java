@@ -597,6 +597,12 @@ public class MainWindow
 	{
 		Authentification login = new Authentification(this.frame, false);
 		login.setVisible(true);
+		Personne connectedPerson = login.getConnectedPerson();
+		
+		if (connectedPerson instanceof Eleve){
+			ArrayList<Projet> listProjets = new ProjetController().getProjetFromEleve(connectedPerson.getId());
+			System.out.println("C'est un eleve !!!");
+		}
 	}
 	
 	

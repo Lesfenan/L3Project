@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.sun.glass.events.WindowEvent;
 
+import javafx.scene.Parent;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -63,6 +65,8 @@ public class Authentification extends JDialog
 	private  ButtonGroup group ;
 	
 	private JComboBox m_comboBox_Classe;
+	
+	private Personne connectedPerson;
 
 
 
@@ -189,12 +193,12 @@ public class Authentification extends JDialog
 	 */
 	private void verifyConnect()
 	{
-		Personne connectedPerson;
+		
 		String pw = String.valueOf(m_JPassword_Password.getPassword());
 		String login = String.valueOf(m_textField_ID.getText());
 		
 		if (m_Radio_Eleve.isSelected()){
-			connectedPerson = new LoginController().login(login, pw, "Eleve");
+			connectedPerson =new LoginController().login(login, pw, "Eleve");
 		}
 		else {
 			connectedPerson = new LoginController().login(login, pw, "Enseignant");
@@ -218,6 +222,17 @@ public class Authentification extends JDialog
 
 	public void setClasse(String classe) {
 		this.classe = classe;
+	}
+
+
+
+	public Personne getConnectedPerson() {
+		if (connectedPerson instanceof Eleve){
+			return (Eleve)connectedPerson;
+		}
+		else {
+			return connectedPerson;
+		}
 	}
 
 }
