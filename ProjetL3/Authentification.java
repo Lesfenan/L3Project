@@ -127,7 +127,7 @@ public class Authentification extends JDialog
 		
 		m_comboBox_Classe = new JComboBox();
 		m_comboBox_Classe.setBounds(20, 121, 83, 27);
-		
+		m_comboBox_Classe.setVisible(false);
 		contentPanel.add(m_comboBox_Classe);
 		m_comboBox_Classe.addItem("L3");
 		m_comboBox_Classe.addItem("M1");

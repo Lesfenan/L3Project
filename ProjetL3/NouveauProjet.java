@@ -52,13 +52,17 @@ public class NouveauProjet extends JDialog {
 	 */
 	private ArrayList<Enseignant> ListeProvisoireEns;
 	/**
+	 * Collection des eleves dans la BD
+	 */
+	private ArrayList<Eleve> ListeProvisoireEleves;
+	/**
 	 * Collection d'eleves
 	 */
 	private ArrayList<Eleve> ListeEleves;
 	/**
 	 * Champ pour le nom de l'eleve
 	 */
-	private JTextField m_textField_AddEleve;
+	private JComboBox m_comboBox_AddEleve;
 	/**
 	 * Combobox pour choisir un tuteur
 	 */
@@ -85,6 +89,7 @@ public class NouveauProjet extends JDialog {
 		
 		EnseignantController Ens = new EnseignantController();
 		ListeProvisoireEns = Ens.getListOfEnseignant();
+		ListeProvisoireEleves = new EleveController().getListOfEleve();
 		
 		setBounds(100, 100, 380, 493);
 		getContentPane().setLayout(new BorderLayout());
@@ -114,34 +119,35 @@ public class NouveauProjet extends JDialog {
 		m_Label_Eleves.setBounds(22, 186, 61, 16);
 		contentPanel.add(m_Label_Eleves);
 		
-		m_textField_AddEleve = new JTextField();
-		m_textField_AddEleve.setBounds(154, 181, 130, 26);
-		contentPanel.add(m_textField_AddEleve);
-		m_textField_AddEleve.setColumns(10);
+		m_comboBox_AddEleve = new JComboBox();
+		m_comboBox_AddEleve.setModel(new DefaultComboBoxModel(getEleveNomPrenom(ListeProvisoireEleves).toArray()));
+		m_comboBox_AddEleve.setBounds(154, 181, 130, 26);
+		contentPanel.add(m_comboBox_AddEleve);
 		
+		/*
 		JLabel m_lbl_Erreur = new JLabel("Erreur : Veuillez respectecter le format : Prénom Nom");
 		m_lbl_Erreur.setForeground(Color.RED);
 		m_lbl_Erreur.setBounds(22, 153, 352, 16);
 		m_lbl_Erreur.setVisible(false);
 		contentPanel.add(m_lbl_Erreur);
+		*/
 		
 		JButton m_Button_AddEleve = new JButton("OK");
 		m_Button_AddEleve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				String[] content = m_textField_AddEleve.getText().split(" ");
+				String[] content = m_comboBox_AddEleve.getSelectedItem().toString().split(" ");
 				try 
 				{
 					String prenom = content[0];
 					String nom = content[1];
 					ListeEleves.add(new Eleve(prenom, nom));
 					m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
-					m_textField_AddEleve.setText("");
 					m_ComboBox_ListeEleves.setSelectedItem(m_ComboBox_ListeEleves.getItemAt(m_ComboBox_ListeEleves.getItemCount() - 1));
 				} 
 				catch (Exception e2) 
 				{
-					m_lbl_Erreur.setVisible(true);
+					//m_lbl_Erreur.setVisible(true);
 				}
 
 			}
@@ -254,10 +260,10 @@ public class NouveauProjet extends JDialog {
 		
 	}
 	
-	public ArrayList<String> getEleveNomPrenom(ArrayList<Enseignant> Ens)
+	public ArrayList<String> getEleveNomPrenom(ArrayList<Eleve> listeEleves)
 	{
 		ArrayList<String> result = new ArrayList<String>();
-		for(Enseignant i : Ens)
+		for(Eleve i : listeEleves)
 		{
 			result.add(i.getPrenom() + " " + i.getNom());
 		}
