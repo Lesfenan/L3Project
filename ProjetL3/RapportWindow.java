@@ -42,7 +42,7 @@ public class RapportWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RapportWindow frame = new RapportWindow();
+					RapportWindow frame = new RapportWindow(1,1,"L3MIAGE");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +54,7 @@ public class RapportWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RapportWindow() {
+	public RapportWindow(int selectedJalon, int selectedProjet,String currentClasse) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 409, 116);
 		contentPane = new JPanel();
@@ -78,46 +78,56 @@ public class RapportWindow extends JFrame {
 		m_btn_Browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("Parcours !");
-				String repertoireSreduit;
-
-					//fcSauvegarde.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					int rVal = fcSauvegarde.showOpenDialog(null);
-					
-					 if (rVal == JFileChooser.APPROVE_OPTION) {
-				          repertoire =fcSauvegarde.getSelectedFile().toString();
-				          
-				          //int end = repertoireS.lastIndexOf(' ', 10);
-				          
-						if (repertoire.length()>30)
-				  			repertoireSreduit = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
-				          else 
-				        	  repertoireSreduit = repertoire;
-				          
-				          System.out.println(repertoireSreduit);
-				          //labelRepertoire.setText(repertoireSreduit);
-				          File sourceFile = new File(repertoire);
-				          File destinationFile = new File("C:/Users/Tanguy Re/AppData/Local/Temp/");
-				          String destinationPath = "C:/Users/Tanguy Re/AppData/Local/Temp/";
-				          Path path = Paths.get(repertoire);
-				          System.out.println(new File(destinationPath+sourceFile.getName()).toPath());
-				          
-				          try {
-							Files.copy(path, new File(destinationPath+sourceFile.getName()).toPath(),StandardCopyOption.REPLACE_EXISTING);
-							System.out.println("Tel meeeee");
-						} catch (IOException e2) {
-							// TODO Auto-generated catch block
-							e2.printStackTrace();
-						}
-
-					 }
+				copieFichier(selectedJalon,selectedProjet,currentClasse);
+				
 			}
 		});
-		m_btn_Browse.setBounds(286, 18, 117, 29);
-		contentPane.add(m_btn_Browse);
-
 		
+		m_btn_Browse.setBounds(286, 18, 117, 29);
+		contentPane.add(m_btn_Browse);		
 	}
 		
+	public void copieFichier(int selectedJalon, int selectedProjet,String currentClasse){
+		//RECUPERATION DU FICHIER DE LUTILISATEUR
+		String repertoireSreduit;
+
+		//fcSauvegarde.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int rVal = fcSauvegarde.showOpenDialog(null);
+		
+		 if (rVal == JFileChooser.APPROVE_OPTION) {
+	          repertoire =fcSauvegarde.getSelectedFile().toString();
+	          
+	          //int end = repertoireS.lastIndexOf(' ', 10);
+	          
+			if (repertoire.length()>30)
+	  			repertoireSreduit = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
+	          else 
+	        	  repertoireSreduit = repertoire;
+	          
+	          System.out.println(repertoireSreduit);
+	          //labelRepertoire.setText(repertoireSreduit);
+	          
+	          //ENVOI DU FICHIER DE LUTILISATEUR VERS LE REPERTOIRE VOULUE
+
+	          File sourceFile = new File(repertoire);
+	          File destinationFile = new File("C:/Users/Tanguy Re/AppData/Local/Temp/");
+	          String destinationPath = "C:/Users/Tanguy Re/AppData/Local/Temp/";
+	          destinationPath = destinationPath+currentClasse+"_"+selectedProjet+"_"+selectedJalon;
+	          
+	          new File(destinationPath).mkdirs();
+	          
+	          Path path = Paths.get(repertoire);
+	          System.out.println(new File(destinationPath+sourceFile.getName()).toPath());
+	          
+	          try {
+				Files.copy(path, new File(destinationPath+sourceFile.getName()).toPath(),StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Tel meeeee");
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+
+		 }
+	}
 
 }
