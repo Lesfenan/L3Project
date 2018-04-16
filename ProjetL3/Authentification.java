@@ -9,10 +9,15 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.glass.events.WindowEvent;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionEvent;
@@ -70,10 +75,22 @@ public class Authentification extends JDialog
 	public Authentification(Frame mainWindow, boolean modal) {
 		
 		super(mainWindow, modal);
-		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		User = new HashMap<String, String>();
-		User.put("pogoman23", "salutcava");
-		User.put("a", "a");
+		
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		
+		/*
+		this.addWindowListener(new WindowAdapter() {
+			
+		    public void windowClosing(WindowEvent e) {
+		         int answer = JOptionPane.showConfirmDialog(mainWindow, "You want to quit?", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		         if (answer == JOptionPane.YES_OPTION)
+		             System.exit(0);
+		         
+		    	}
+			
+		});
+		*/
+		
 		group = new ButtonGroup();
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		setResizable(false);
@@ -110,6 +127,7 @@ public class Authentification extends JDialog
 		
 		m_comboBox_Classe = new JComboBox();
 		m_comboBox_Classe.setBounds(20, 121, 83, 27);
+		m_comboBox_Classe.setVisible(false);
 		contentPanel.add(m_comboBox_Classe);
 		m_comboBox_Classe.addItem("L3");
 		m_comboBox_Classe.addItem("M1");
@@ -120,7 +138,7 @@ public class Authentification extends JDialog
 		m_Radio_Eleve.setBounds(292, 108, 64, 23);
 		m_Radio_Eleve.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				m_comboBox_Classe.setVisible(true);
+				m_comboBox_Classe.setVisible(false);
 			}
 		});
 		contentPanel.add(m_Radio_Eleve);
@@ -130,7 +148,7 @@ public class Authentification extends JDialog
 		m_Radio_Enseignant.setBounds(292, 143, 103, 23);
 		m_Radio_Enseignant.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				m_comboBox_Classe.setVisible(false);
+				m_comboBox_Classe.setVisible(true);
 			}
 		});
 		group.add(m_Radio_Enseignant);

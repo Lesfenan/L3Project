@@ -20,7 +20,7 @@ public class EleveController {
         ArrayList<Eleve> resultat = new ArrayList<Eleve>();
         try {
             
-            String query = "SELECT DISTINCT id, nom, prenom FROM Eleve ORDER BY nom ASC";
+            String query = "SELECT DISTINCT id, nom, prenom FROM Eleve ORDER BY prenom ASC";
             Statement state = this.connection.createStatement();
 
             ResultSet result = state.executeQuery(query);
