@@ -4,6 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -80,12 +90,26 @@ public class RapportWindow extends JFrame {
 				          //int end = repertoireS.lastIndexOf(' ', 10);
 				          
 						if (repertoire.length()>30)
-				  			repertoire = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
+				  			repertoireSreduit = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
 				          else 
 				        	  repertoireSreduit = repertoire;
 				          
-				          System.out.println(repertoire);
+				          System.out.println(repertoireSreduit);
 				          //labelRepertoire.setText(repertoireSreduit);
+				          File sourceFile = new File(repertoire);
+				          File destinationFile = new File("C:/Users/Tanguy Re/AppData/Local/Temp/");
+				          String destinationPath = "C:/Users/Tanguy Re/AppData/Local/Temp/";
+				          Path path = Paths.get(repertoire);
+				          System.out.println(new File(destinationPath+sourceFile.getName()).toPath());
+				          
+				          try {
+							Files.copy(path, new File(destinationPath+sourceFile.getName()).toPath(),StandardCopyOption.REPLACE_EXISTING);
+							System.out.println("Tel meeeee");
+						} catch (IOException e2) {
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+						}
+
 					 }
 			}
 		});
@@ -94,6 +118,6 @@ public class RapportWindow extends JFrame {
 
 		
 	}
-	
+		
 
 }

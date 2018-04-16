@@ -114,11 +114,21 @@ public class Authentification extends JDialog
 		m_Radio_Eleve = new JRadioButton("Eleve");
 		m_Radio_Eleve.setSelected(true);
 		m_Radio_Eleve.setBounds(292, 108, 64, 23);
+		m_Radio_Eleve.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				m_comboBox_Classe.setVisible(true);
+			}
+		});
 		contentPanel.add(m_Radio_Eleve);
 		group.add(m_Radio_Eleve);
 		
 		m_Radio_Enseignant = new JRadioButton("Enseignant");
 		m_Radio_Enseignant.setBounds(292, 143, 103, 23);
+		m_Radio_Enseignant.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				m_comboBox_Classe.setVisible(false);
+			}
+		});
 		group.add(m_Radio_Enseignant);
 		contentPanel.add(m_Radio_Enseignant);
 		{
