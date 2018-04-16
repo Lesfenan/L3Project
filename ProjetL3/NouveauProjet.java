@@ -230,7 +230,7 @@ public class NouveauProjet extends JDialog {
 
 		for(Jalon j : MainWindow.getM_listeJalon())
 		{
-			newProject.addJalon(j.getIntitule(), j.getDateFin(), "L3");
+			newProject.addJalon(j.getIntitule(), j.getDateFin(), Authentification.getClasse());
 		}
 		
 		

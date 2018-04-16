@@ -1,6 +1,6 @@
 public class Jalon {
     private int id;
-    private String intitule;
+	private String intitule;
     private String classe;
     private int progression;
     private int notation;
@@ -65,4 +65,9 @@ public class Jalon {
 	public void setDateFin(java.util.Date dateFin) {
 		this.dateFin = dateFin;
 	}
+	
+    public int getId() {
+		return id;
+	}
+
 }

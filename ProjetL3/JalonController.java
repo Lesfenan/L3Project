@@ -33,4 +33,15 @@ public class JalonController {
             catch(Exception e) {}
         return j;
     }
+    
+    public void addDescription(int idJalon, String description) {
+        try {
+
+            String update = "UPDATE Jalon set description = '" + description + "' WHERE id = '" + idJalon + "';";
+            Statement state = this.connection.createStatement();
+
+            state.executeUpdate(update);
+        }
+        catch(Exception e) {}
+}
 }

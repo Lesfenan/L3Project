@@ -441,7 +441,7 @@ public class MainWindow
 		showAuth();
 		m_listeProjet = new ArrayList<Projet>();
 		ProjetController p = new ProjetController();
-		for(Projet data : p.getListOfProjet("L3"))
+		for(Projet data : p.getListOfProjet(Authentification.getClasse()))
 		{
 			m_listeProjet.add(data);
 			addProject();
@@ -662,6 +662,11 @@ public class MainWindow
 
 			DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
 			model.setValueAt(m_textField_Description.getText(), m_Table_Frise.getSelectedRow(), selectedJalon + 1);
+
+			int id = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getId();
+			
+			JalonController j = new JalonController();
+			j.addDescription(id, m_textField_Description.getText());
 	}
 	
 	public void ChangeNote()

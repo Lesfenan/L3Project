@@ -23,6 +23,8 @@ import javax.swing.JRadioButton;
 
 public class Authentification extends JDialog 
 {
+	private static String classe;
+
 
 	/**
 	 * serial ID pour swing
@@ -54,6 +56,8 @@ public class Authentification extends JDialog
 	private JRadioButton m_Radio_Eleve;
 	
 	private  ButtonGroup group ;
+	
+	private JComboBox m_comboBox_Classe;
 
 
 
@@ -104,7 +108,7 @@ public class Authentification extends JDialog
 		m_Label_ErreurID.setVisible(false);
 		contentPanel.add(m_Label_ErreurID);
 		
-		JComboBox m_comboBox_Classe = new JComboBox();
+		m_comboBox_Classe = new JComboBox();
 		m_comboBox_Classe.setBounds(20, 121, 83, 27);
 		contentPanel.add(m_comboBox_Classe);
 		m_comboBox_Classe.addItem("L3");
@@ -180,12 +184,22 @@ public class Authentification extends JDialog
 		
 		
 		if (connectedPerson.getId() != 0){
+			setClasse(m_comboBox_Classe.getSelectedItem().toString());
 			dispose();
 		}
 		else {
 			m_Label_ErreurID.setVisible(true);
-		}
-				
-		
+		}		
 	}
+	
+	public static String getClasse() {
+		return classe;
+	}
+
+
+
+	public void setClasse(String classe) {
+		this.classe = classe;
+	}
+
 }
