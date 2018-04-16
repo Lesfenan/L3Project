@@ -24,6 +24,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.Cursor;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JList;
@@ -525,14 +526,15 @@ public class MainWindow
 	}
 	
 	/**
-	 * Permet d'ajouter un menu contextuelle a un element
-	 * @param component element sur lequelle on veut avoir le menu contextuelle
-	 * @param popup menu contextuelle que l'on veut ajouter
+	 * Permet d'ajouter un menu contextuel a un element
+	 * @param component element sur lequel on veut avoir le menu contextuel
+	 * @param popup menu contextuel que l'on veut ajouter
 	 */
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
+				System.out.println("Hello there");
+				if (SwingUtilities.isRightMouseButton(e)) {				
 					showMenu(e);
 				} 
 			}
