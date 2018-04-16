@@ -15,7 +15,7 @@ public class Recherche {
      * @return Retourne une arraylist avec tous les résultats de la recherche
      */
 
-    public ArrayList<String> rechercher(String r) {
+    public ArrayList<String> rechercherEleve(String r) {
         ArrayList<String> resultat = new ArrayList<String>();
         try {
             String query = "SELECT nom FROM Eleve WHERE nom LIKE '" + r + "%' ORDER BY nom DESC LIMIT 0,20";
@@ -26,6 +26,23 @@ public class Recherche {
             while (result.next()) {
                 String nomEleve = result.getString(1);
                 resultat.add(nomEleve); //TODO separer noms et prenoms
+            }
+        }
+        catch(Exception e) {}
+    return resultat;
+    }
+    
+    public ArrayList<String> rechercherProjet(String r) {
+        ArrayList<String> resultat = new ArrayList<String>();
+        try {
+            String query = "SELECT sujet FROM Projet WHERE sujet LIKE '" + r + "%' ORDER BY sujet DESC LIMIT 0,20";
+            Statement state = this.connection.createStatement();
+            
+            ResultSet result = state.executeQuery(query);
+
+            while (result.next()) {
+                String sujetProjet = result.getString(1);
+                resultat.add(sujetProjet); //TODO separer noms et prenoms
             }
         }
         catch(Exception e) {}

@@ -72,49 +72,53 @@ public class RapportWindow extends JFrame {
 		
 
 		
-		JButton m_btn_Ok = new JButton("OK");
-		m_btn_Ok.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) 
-			{
-				// OK COPIE FICHIER
-			}
-		});
-		m_btn_Ok.setBounds(286, 51, 117, 29);
-		contentPane.add(m_btn_Ok);
+		
 		
 		m_btn_Browse = new JButton("Browse");
 		m_btn_Browse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				copieFichier(selectedJalon,selectedProjet,currentClasse);
+				int rVal = fcSauvegarde.showOpenDialog(null);
+				//RECUPERATION DU FICHIER DE LUTILISATEUR
+				String repertoireSreduit;
+				repertoire =fcSauvegarde.getSelectedFile().toString();
+		          
+		          //int end = repertoireS.lastIndexOf(' ', 10);
+		          
+				if (repertoire.length()>30)
+		  			repertoireSreduit = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
+		          else 
+		        	  repertoireSreduit = repertoire;
+		          
+		          System.out.println(repertoireSreduit);
+		          m_textField_Path.setText(repertoireSreduit);
 				
 			}
 		});
+		
+		JButton m_btn_Ok = new JButton("OK");
+		m_btn_Ok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				copieFichier(selectedJalon,selectedProjet,currentClasse);
+			}
+		});
+		m_btn_Ok.setBounds(286, 51, 117, 29);
+		contentPane.add(m_btn_Ok);
+		
 		
 		m_btn_Browse.setBounds(286, 18, 117, 29);
 		contentPane.add(m_btn_Browse);		
 	}
 		
 	public void copieFichier(int selectedJalon, int selectedProjet,String currentClasse){
-		//RECUPERATION DU FICHIER DE LUTILISATEUR
-		String repertoireSreduit;
+		
 
 		//fcSauvegarde.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		int rVal = fcSauvegarde.showOpenDialog(null);
 		
-		 if (rVal == JFileChooser.APPROVE_OPTION) {
-	          repertoire =fcSauvegarde.getSelectedFile().toString();
-	          
-	          //int end = repertoireS.lastIndexOf(' ', 10);
-	          
-			if (repertoire.length()>30)
-	  			repertoireSreduit = repertoire.substring(0, 15) + "..." + repertoire.substring(repertoire.length()-15, repertoire.length()) ;
-	          else 
-	        	  repertoireSreduit = repertoire;
-	          
-	          System.out.println(repertoireSreduit);
-	          //labelRepertoire.setText(repertoireSreduit);
+		
+	         
 	          
 	          //ENVOI DU FICHIER DE LUTILISATEUR VERS LE REPERTOIRE VOULUE
 
@@ -138,4 +142,4 @@ public class RapportWindow extends JFrame {
 		 }
 	}
 
-}
+

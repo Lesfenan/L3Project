@@ -110,7 +110,7 @@ public class RechercheProjetWindow extends JFrame {
 			{
 				Recherche test = new Recherche();
 				ArrayList<String> res = new ArrayList<String>();
-				res = test.rechercher("c");
+				res = test.rechercherProjet("c");
 				System.out.println(res.size());
 				
 			}
@@ -130,7 +130,7 @@ public class RechercheProjetWindow extends JFrame {
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		
-		for(String ele : SearchDB.rechercher(req))
+		for(String ele : SearchDB.rechercherProjet(req))
 		{
 			listModel.addElement(ele);
 		}
