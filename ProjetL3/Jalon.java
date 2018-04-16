@@ -7,6 +7,7 @@ public class Jalon {
     private java.util.Date dateFin;
     
     
+    
 
 
 	public Jalon (int argId, String argIntitule, java.util.Date argDate, int argProgression, int argNotation, String argClasse) {

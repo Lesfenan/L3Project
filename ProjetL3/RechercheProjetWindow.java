@@ -135,6 +135,11 @@ public class RechercheProjetWindow extends JFrame {
 			listModel.addElement(ele);
 		}
 		
+		for(String ele : SearchDB.rechercherProjetMotCle(req))
+		{
+			listModel.addElement(ele);
+		}
+		
 		m_Jlist_Result.setModel(listModel);
 	}
 }

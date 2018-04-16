@@ -128,6 +128,7 @@ public class MainWindow
 	private int selectedJalon;
 	private JMenuItem m_mntm_RendreRapport;
 	private JMenuItem m_mntm_RechercheProjet;
+	private JMenuItem mntmEditerProgression;
 
 
 	/**
@@ -459,6 +460,16 @@ public class MainWindow
 					}
 				});
 				m_ContextMenu_AddJalon.add(m_mntm_RendreRapport);
+				
+				mntmEditerProgression = new JMenuItem("Editer progression");
+				mntmEditerProgression.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e) 
+					{
+						ChangerProgression();
+					}
+				});
+				m_ContextMenu_AddJalon.add(mntmEditerProgression);
 	///////START///////////
 		showAuth();
 		m_listeProjet = new ArrayList<Projet>();
@@ -702,6 +713,10 @@ public class MainWindow
 		
 		NotationWindow note = new NotationWindow(m_listeJalon.get(root.getIndex(selectedNode)), m_listeProjet.get(m_Table_Frise.getSelectedRow()), root.getIndex(selectedNode));	
 		note.setVisible(true);
+		
+		int id = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getId();
+		JalonController j = new JalonController();
+		j.addNotation(id, m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getNotation());
 	}
 	
 	public void AjouterRapport()
@@ -722,5 +737,18 @@ public class MainWindow
 		RechercheProjetWindow rp = new RechercheProjetWindow();
 		rp.setVisible(true);
 	}
+	
+	public void ChangerProgression()
+	{
+		
+		 DefaultMutableTreeNode selectedNode = 
+			       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+		 Jalon j = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode));
+		 Projet p = m_listeProjet.get(m_Table_Frise.getSelectedRow());
+		ProgressionWindow prog = new ProgressionWindow(p,j);
+		prog.setVisible(true);
+	}
+	
+	
 }
 	

@@ -198,18 +198,7 @@ public class NouveauProjet extends JDialog {
 	 */
 	public void AddProjet()
 	{
-		
-		try {
-		Connection conn = new Connect().getConnection();
-		Statement state = conn.createStatement();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		state.executeUpdate("INSERT INTO Projet ( `annee`) VALUES ( '"+Calendar.YEAR+"-"+Calendar.MONTH+"-"+Calendar.DAY_OF_MONTH+"');");
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 
 
 		Projet newProject = new Projet(new Random().nextInt(1000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves);
