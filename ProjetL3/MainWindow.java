@@ -126,6 +126,7 @@ public class MainWindow
 	private JTextField m_textField_Description;
 	
 	private int selectedJalon;
+	private JMenuItem m_mntm_RendreRapport;
 
 
 	/**
@@ -437,6 +438,16 @@ public class MainWindow
 					}
 				});
 				m_ContextMenu_AddJalon.add(m_menuItem_Noter);
+				
+				m_mntm_RendreRapport = new JMenuItem("Rendre rapport");
+				m_mntm_RendreRapport.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent e)
+					{
+						AjouterRapport();
+					}
+				});
+				m_ContextMenu_AddJalon.add(m_mntm_RendreRapport);
 	///////START///////////
 		showAuth();
 		m_listeProjet = new ArrayList<Projet>();
@@ -680,6 +691,19 @@ public class MainWindow
 		
 		NotationWindow note = new NotationWindow(m_listeJalon.get(root.getIndex(selectedNode)), m_listeProjet.get(m_Table_Frise.getSelectedRow()), root.getIndex(selectedNode));	
 		note.setVisible(true);
+	}
+	
+	public void AjouterRapport()
+	{
+		 DefaultMutableTreeNode selectedNode = 
+			       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent(); 
+		if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1 || root.getIndex(selectedNode) < 0 || root.getIndex(selectedNode) > m_listeJalon.size() - 1)
+		{
+			return;
+		}
+		RapportWindow r = new RapportWindow(root.getIndex(selectedNode), m_Table_Frise.getSelectedRow(), Authentification.getClasse());
+		
+		r.setVisible(true);
 	}
 }
 	

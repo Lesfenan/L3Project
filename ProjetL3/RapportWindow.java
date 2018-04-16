@@ -25,6 +25,8 @@ import javax.swing.border.EmptyBorder;
 import javafx.stage.FileChooser;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RapportWindow extends JFrame {
 
@@ -71,6 +73,13 @@ public class RapportWindow extends JFrame {
 
 		
 		JButton m_btn_Ok = new JButton("OK");
+		m_btn_Ok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				// OK COPIE FICHIER
+			}
+		});
 		m_btn_Ok.setBounds(286, 51, 117, 29);
 		contentPane.add(m_btn_Ok);
 		
@@ -111,8 +120,8 @@ public class RapportWindow extends JFrame {
 
 	          File sourceFile = new File(repertoire);
 	          File destinationFile = new File("C:/Users/Tanguy Re/AppData/Local/Temp/");
-	          String destinationPath = "C:/Users/Tanguy Re/AppData/Local/Temp/";
-	          destinationPath = destinationPath+currentClasse+"_"+selectedProjet+"_"+selectedJalon;
+	          String destinationPath = "/Users/marwanoriginals/Documents/RENDU/";
+	          destinationPath = destinationPath+currentClasse+"_"+selectedProjet+"_"+selectedJalon+"/";
 	          
 	          new File(destinationPath).mkdirs();
 	          
@@ -121,7 +130,6 @@ public class RapportWindow extends JFrame {
 	          
 	          try {
 				Files.copy(path, new File(destinationPath+sourceFile.getName()).toPath(),StandardCopyOption.REPLACE_EXISTING);
-				System.out.println("Tel meeeee");
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
