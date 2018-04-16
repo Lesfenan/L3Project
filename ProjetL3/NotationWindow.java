@@ -133,6 +133,8 @@ public class NotationWindow extends JFrame {
 		if(note <= 20 || note >= 0)
 		{
 			projet.getCollectionJalons().get(index).setNotation(note);
+			JalonController jc = new JalonController();
+			jc.addNotation(projet.getCollectionJalons().get(index).getId(), note);
 			dispose();
 		}
 	}

@@ -5,10 +5,20 @@ public class Jalon {
     private int progression;
     private int notation;
     private java.util.Date dateFin;
+    private String description;
     
     
-    
+   
 
+	public Jalon (int argId, String argIntitule, java.util.Date argDate, int argProgression, int argNotation, String argClasse,String argDescription) {
+        id = argId;
+        classe = argClasse;
+        intitule = argIntitule;
+        dateFin = argDate;
+        progression = argProgression;
+        notation = argNotation;
+        description = argDescription;
+    }
 
 	public Jalon (int argId, String argIntitule, java.util.Date argDate, int argProgression, int argNotation, String argClasse) {
         id = argId;
@@ -31,7 +41,8 @@ public class Jalon {
         id = argId;
     }
     
-    public void setNotation(int argNotation) {  //TODO Note <=20
+    public void setNotation(int argNotation) 
+    {
         notation = argNotation;
     }
     
@@ -69,6 +80,14 @@ public class Jalon {
 	
     public int getId() {
 		return id;
+	}
+    
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

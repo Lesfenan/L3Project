@@ -16,17 +16,18 @@ public class Projet {
     private String classe;
     
     public Projet(int argId, String argSujet, String argClasse, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon) {
-        setCollectionEleves(argEleve);
+    	collectionJalons = argJalon;
+    	collectionEleves = argEleve;
+    	
+    		setCollectionEleves(argEleve);
         setEnseignant(argEnseignant);
         annee = argAnnee;
         sujet = argSujet;
         id = argId;
         classe = argClasse;
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        collectionEleves = new ArrayList<Eleve>();
         motsCles = new ArrayList<String>();
         motsCles.add(argSujet);
-        collectionJalons = new ArrayList<Jalon>();
     }
    
 

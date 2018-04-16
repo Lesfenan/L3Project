@@ -122,7 +122,7 @@ public class ProjetController {
  public ArrayList<Jalon> getJalonProjet(int idProjet) {
  ArrayList<Jalon> jl = new ArrayList<Jalon>();
  try {
- String query = "SELECT J.id, J.intitule, J.notation, J.progression, J.dateFin, J.classe FROM Jalon J WHERE J.projet = " + String.valueOf(idProjet);
+ String query = "SELECT J.id, J.intitule, J.notation, J.progression, J.dateFin, J.classe, J.description FROM Jalon J WHERE J.projet = " + String.valueOf(idProjet);
  Statement state = this.connection.createStatement();
 
  ResultSet result = state.executeQuery(query);
@@ -133,7 +133,8 @@ public class ProjetController {
  int progressionJalon = result.getInt(4);
  java.util.Date finJalon = result.getDate(5);
  String classeJalon = result.getString(6);
- Jalon j = new Jalon(idJalon, intituleJalon, finJalon, progressionJalon, notationJalon, classeJalon);
+ String description = result.getString(7);
+ Jalon j = new Jalon(idJalon, intituleJalon, finJalon, progressionJalon, notationJalon, classeJalon, description);
  jl.add(j);
  }
  }

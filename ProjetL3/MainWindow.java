@@ -482,11 +482,34 @@ public class MainWindow
 		}
 		m_listeJalon = new ArrayList<Jalon>();
 
-		for(Jalon data : m_listeProjet.get(0).getCollectionJalons())
+		try 
 		{
-			m_listeJalon.add(data);
-			addJalon();
+			for(Jalon data : m_listeProjet.get(0).getCollectionJalons())
+			{
+				m_listeJalon.add(data);
+				addJalon();
+			}
+			
+			int row = 0;
+			int column = 1;
+			DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
+			JalonController jc = new JalonController();
+			for(Projet data : p.getListOfProjet(Authentification.getClasse()))
+			{
+				for(Jalon j : m_listeProjet.get(row).getCollectionJalons())
+				{
+					model.setValueAt(j.getDescription(), row, column);
+					column++;
+				}
+				row++;
+				column = 1;
+			}
+		} catch (Exception e) 
+		{
+
 		}
+
+
 
 	
 		
@@ -535,6 +558,7 @@ public class MainWindow
 		DefaultTableModel model = (DefaultTableModel) m_Table_Frise.getModel();
 		model.addColumn(getM_listeJalon().get(getM_listeJalon().size() - 1).getIntitule());
 		
+		
 		/*
 		for(int i = 0; i<10; i++)
 		{
@@ -555,7 +579,6 @@ public class MainWindow
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Hello there");
 				if (SwingUtilities.isRightMouseButton(e)) {				
 					showMenu(e);
 				} 
@@ -633,9 +656,9 @@ public class MainWindow
 		Jalon selected = m_listeJalon.get(root.getIndex(selectedNode)); 
 		m_lbl_NomDuJalon.setText("Nom du jalon : " + selected.getIntitule());
 		m_lbl_DateDeFin.setText("Date de fin : " + selected.getDateFin().toString());
-		m_lbl_AvancementDuProjet.setText("Avancement du projet : " +  selected.getProgression());
-		
+		int progression = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getProgression();
 		int note = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode)).getNotation();
+		m_lbl_AvancementDuProjet.setText("Avancement du projet : " +  progression);
 		if(note >= 0)
 		{
 			m_lbl_NoteDuProjet.setText("Note du projet : " + note);

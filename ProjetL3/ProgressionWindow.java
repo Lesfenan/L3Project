@@ -8,6 +8,8 @@ import javax.swing.JSlider;
 import javax.swing.JLabel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProgressionWindow extends JFrame {
 
@@ -36,10 +38,16 @@ public class ProgressionWindow extends JFrame {
 		contentPane.setLayout(null);
 		
 		m_slider_Progression = new JSlider();
+		m_slider_Progression.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				ChangerValeur();
+			}
+		});
 		m_slider_Progression.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) 
 			{
-				ChangerValeur();
+				
 			}
 		});
 		m_slider_Progression.setBounds(210, 80, 234, 29);
@@ -64,6 +72,8 @@ public class ProgressionWindow extends JFrame {
 	
 	public void ChangerValeur()
 	{
+		JalonController j = new JalonController();
+		j.addProgression(jalon.getId(), m_slider_Progression.getValue());
 		jalon.setProgression(m_slider_Progression.getValue());
 		m_lbl_Progression.setText("Progression : " + jalon.getProgression());
 	}

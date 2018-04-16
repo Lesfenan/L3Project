@@ -230,6 +230,8 @@ public class NouveauProjet extends JDialog {
 		
 		
 		MainWindow.getM_listeProjet().add(newProject);
+		ProjetController p = new ProjetController();
+		p.addProjetToDB(newProject.getSujet(), Authentification.getClasse(), newProject.getEnseignant(), newProject.getCollectionEleves(), newProject.getMotsCles());
 	}
 	
 	
