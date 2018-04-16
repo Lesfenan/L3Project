@@ -212,7 +212,7 @@ public class NouveauProjet extends JDialog {
 		}
 
 
-		Projet newProject = new Projet(new Random().nextInt(1000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves, null);
+		Projet newProject = new Projet(new Random().nextInt(1000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves);
 		
 		for(Eleve e : ListeEleves)
 		{
@@ -230,7 +230,7 @@ public class NouveauProjet extends JDialog {
 
 		for(Jalon j : MainWindow.getM_listeJalon())
 		{
-			newProject.addJalon(j.getIntitule(), j.getDateFin());
+			newProject.addJalon(j.getIntitule(), j.getDateFin(), "L3");
 		}
 		
 		
