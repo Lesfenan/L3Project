@@ -127,6 +127,7 @@ public class MainWindow
 	
 	private int selectedJalon;
 	private JMenuItem m_mntm_RendreRapport;
+	private JMenuItem m_mntm_RechercheProjet;
 
 
 	/**
@@ -300,6 +301,16 @@ public class MainWindow
 			}
 		});
 		m_Menu_CreateProject.add(m_MenuItem_Nouveau);
+		
+		m_mntm_RechercheProjet = new JMenuItem("Recherche Projet");
+		m_mntm_RechercheProjet.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) 
+			{
+				RechercheProjet();
+			}
+		});
+		m_Menu_Fichier.add(m_mntm_RechercheProjet);
 		
 		JMenu m_Menu_Edition = new JMenu("Edition");
 		m_MenuBar_Main.add(m_Menu_Edition);
@@ -704,6 +715,12 @@ public class MainWindow
 		RapportWindow r = new RapportWindow(root.getIndex(selectedNode), m_Table_Frise.getSelectedRow(), Authentification.getClasse());
 		
 		r.setVisible(true);
+	}
+	
+	public void RechercheProjet()
+	{
+		RechercheProjetWindow rp = new RechercheProjetWindow();
+		rp.setVisible(true);
 	}
 }
 	
