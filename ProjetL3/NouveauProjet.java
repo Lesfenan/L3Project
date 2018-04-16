@@ -253,5 +253,16 @@ public class NouveauProjet extends JDialog {
 		return result;
 		
 	}
+	
+	public ArrayList<String> getEleveNomPrenom(ArrayList<Enseignant> Ens)
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		for(Enseignant i : Ens)
+		{
+			result.add(i.getPrenom() + " " + i.getNom());
+		}
+		return result;
+		
+	}
 
 }

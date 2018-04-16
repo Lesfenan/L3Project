@@ -284,7 +284,7 @@ public class MainWindow
 		JMenu m_Menu_Fichier = new JMenu("Fichier");
 		m_MenuBar_Main.add(m_Menu_Fichier);
 		
-		JMenu m_Menu_CreateProject = new JMenu("Cr\u00E9er un projet");
+		JMenu m_Menu_CreateProject = new JMenu("Creer un projet");
 		m_Menu_Fichier.add(m_Menu_CreateProject);
 		
 		JMenuItem m_MenuItem_Nouveau = new JMenuItem("Nouveau");

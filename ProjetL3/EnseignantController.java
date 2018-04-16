@@ -20,7 +20,7 @@ public class EnseignantController {
         ArrayList<Enseignant> resultat = new ArrayList<Enseignant>();
         try {
             
-            String query = "SELECT DISTINCT id, nom, prenom FROM Enseignant ORDER BY nom ASC";
+            String query = "SELECT DISTINCT id, nom, prenom FROM Enseignant ORDER BY prenom ASC";
             Statement state = this.connection.createStatement();
 
             ResultSet result = state.executeQuery(query);
