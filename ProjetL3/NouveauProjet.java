@@ -217,13 +217,12 @@ public class NouveauProjet extends JDialog {
 
 
 
-		Projet newProject = new Projet(new Random().nextInt(10000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves);
+		Projet newProject = new Projet(new Random().nextInt(10000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves,m_textArea_MotsCles.getText());
 		
 		for(Eleve e : ListeEleves)
 		{
 			newProject.addEleve(e);
 		}
-		
 		String[] mcArray = m_textArea_MotsCles.getText().split(",");
 		
 		
@@ -232,6 +231,8 @@ public class NouveauProjet extends JDialog {
 		{
 			newProject.getMotsCles().add(data);
 		}
+		
+		newProject.setMotCleRaw(m_textArea_MotsCles.getText());
 
 		for(Jalon j : MainWindow.getM_listeJalon())
 		{
@@ -241,7 +242,7 @@ public class NouveauProjet extends JDialog {
 		
 		MainWindow.getM_listeProjet().add(newProject);
 		ProjetController p = new ProjetController();
-		p.addProjetToDB(newProject.getSujet(), Authentification.getClasse(), newProject.getEnseignant(), newProject.getCollectionEleves(), newProject.getMotsCles());
+		p.addProjetToDB(newProject.getSujet(), Authentification.getClasse(), newProject.getEnseignant(), newProject.getCollectionEleves(), newProject.getMotCleRaw());
 	}
 	
 	

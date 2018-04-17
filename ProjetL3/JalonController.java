@@ -23,7 +23,7 @@ public class JalonController {
  Statement state2 = null;
  try {
  state = this.connection.createStatement();
- String insert = "INSERT INTO Jalon(intitule, dateFin, projet, classe, description) VALUES ('" + intitule + "', '" + date + "', '" + idProjet + "', '" + classe + "', 'ioojoj');";
+ String insert = "INSERT INTO Jalon(intitule, dateFin, projet, classe, description) VALUES ('" + intitule + "', '" + date + "', '" + idProjet + "', '" + classe + "', '');";
  state.executeUpdate(insert);
  }
  catch(SQLException e) {

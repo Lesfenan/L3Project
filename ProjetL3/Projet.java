@@ -1,12 +1,15 @@
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class Projet {
     private int id;
 	private String sujet;
     private int annee;
     private ArrayList<String> motsCles;
+    private String motCleRaw;
 
 
 	private Enseignant enseignant;
@@ -15,7 +18,7 @@ public class Projet {
 
     private String classe;
     
-    public Projet(int argId, String argSujet, String argClasse, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon) {
+    public Projet(int argId, String argSujet, String argClasse, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon, String argMotcle) {
     	collectionJalons = argJalon;
     	collectionEleves = argEleve;
     	
@@ -28,10 +31,20 @@ public class Projet {
         annee = Calendar.getInstance().get(Calendar.YEAR);
         motsCles = new ArrayList<String>();
         motsCles.add(argSujet);
+        motCleRaw = argMotcle;
+		String[] mcArray = motCleRaw.split(",");
+		
+		
+		List<String> mc = Arrays.asList(mcArray);
+		for(String data : mc)
+		{
+			motsCles.add(data);
+		}
+		
     }
    
 
-	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon) {
+	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, ArrayList<Jalon> argJalon, String argMotcle) {
         setCollectionEleves(argEleve);
         setEnseignant(argEnseignant);
         
@@ -46,9 +59,19 @@ public class Projet {
         annee = Calendar.getInstance().get(Calendar.YEAR);
         motsCles = new ArrayList<String>();
         motsCles.add(argSujet);
+        motCleRaw = argMotcle;
+		String[] mcArray = motCleRaw.split(",");
+		
+		
+		List<String> mc = Arrays.asList(mcArray);
+		for(String data : mc)
+		{
+			motsCles.add(data);
+		}
+		
     }
 	
-	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve) {
+	public Projet(int argId, String argSujet, int argAnnee, Enseignant argEnseignant, ArrayList<Eleve> argEleve, String argMotcle) {
         setCollectionEleves(argEleve);
         setEnseignant(argEnseignant);
         
@@ -62,6 +85,16 @@ public class Projet {
         annee = Calendar.getInstance().get(Calendar.YEAR);
         motsCles = new ArrayList<String>();
         motsCles.add(argSujet);
+        motCleRaw = argMotcle;
+		String[] mcArray = motCleRaw.split(",");
+		
+		
+		List<String> mc = Arrays.asList(mcArray);
+		for(String data : mc)
+		{
+			motsCles.add(data);
+		}
+		
     }
     
     public void addMotCle(String argMotCle) {
@@ -81,6 +114,18 @@ public class Projet {
     
     public int getAnnee() {
         return annee;
+    }
+    
+    public void setMotCleRawToList() 
+    {
+		String[] mcArray = motCleRaw.split(",");
+		
+		
+		List<String> mc = Arrays.asList(mcArray);
+		for(String data : mc)
+		{
+			motsCles.add(data);
+		}
     }
 
     public ArrayList<Eleve> getCollectionEleves() {
@@ -131,6 +176,16 @@ public class Projet {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	public String getMotCleRaw() {
+		return motCleRaw;
+	}
+
+
+	public void setMotCleRaw(String motCleRaw) {
+		this.motCleRaw = motCleRaw;
 	}
 
 }

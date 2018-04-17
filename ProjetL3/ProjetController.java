@@ -16,8 +16,8 @@ public class ProjetController {
 	 * @return Retourne une arraylist avec tous les résultats de la recherche
 	 */
 
-	public Projet addProjetToDB(String sujet, String classe, Enseignant tuteur, ArrayList<Eleve> eleve ,ArrayList<String> motCle) {
-        Projet p = new Projet(-1,sujet,classe,Calendar.YEAR,tuteur,eleve,new ArrayList<Jalon>());
+	public Projet addProjetToDB(String sujet, String classe, Enseignant tuteur, ArrayList<Eleve> eleve ,String motCle) {
+        Projet p = new Projet(-1,sujet,classe,Calendar.YEAR,tuteur,eleve,new ArrayList<Jalon>(),"");
             try {
                 java.util.Date d = new java.util.Date();
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -32,7 +32,8 @@ public class ProjetController {
                 ResultSet result = state2.executeQuery("SELECT MAX(id) FROM Projet");
                 result.next();
                 int idProjet = result.getInt(1);         
-                p.setId(idProjet);               
+                p.setId(idProjet);     
+                
 
                 String insertTuteur = "INSERT INTO TuteurProjet(idProjet, idEnseignant) VALUES ('" + p.getId() + "', '" + tuteur.getId() + "');";
                 
@@ -43,14 +44,16 @@ public class ProjetController {
                 }
                 System.out.println("eleve insert");
 
-                for(int i = 0; i < motCle.size(); i++) {
-                    state.executeUpdate("INSERT INTO MotCleProjet(idProjet, motCle) VALUES ('" + p.getId() + "', '" + motCle.get(i) + "');");
-                }
+
+                    state.executeUpdate("INSERT INTO MotCleProjet(idProjet, motCle) VALUES ('" + p.getId() + "', '" + motCle + "');");
+          
                 System.out.println("motcle insert");
             }
             catch(SQLException e) {
             		System.out.println("---------------" + e.getMessage());
             }
+            p.setMotCleRaw(this.getMotCleProjet(p.getId()));
+            p.setMotCleRawToList();
         return p;
     }
 	public ArrayList<Projet> getListOfProjet(String classe) {
@@ -70,7 +73,7 @@ public class ProjetController {
 				int year = cal.get(Calendar.YEAR);
 				int id = result.getInt(1);
 
-				Projet projet = new Projet(id, sujetProjet, classe, year, this.getTuteurProjet(id), this.getEleveProjet(id), this.getJalonProjet(id));
+				Projet projet = new Projet(id, sujetProjet, classe, year, this.getTuteurProjet(id), this.getEleveProjet(id), this.getJalonProjet(id),this.getMotCleProjet(id));
 				System.out.println("nb jalons");
 				System.out.println(this.getJalonProjet(id).size());
 				//System.out.println(projet.getCollectionJalons().size());
@@ -121,6 +124,21 @@ public class ProjetController {
 		catch(Exception e) {}
 		return el; 
 	}
+	
+	public String getMotCleProjet(int idProjet) {
+		String motcle = "";
+		try {
+			String query = "SELECT M.motCle FROM MotCleProjet M WHERE " + String.valueOf(idProjet) + " = M.idProjet";
+			Statement state = this.connection.createStatement();
+
+			ResultSet result = state.executeQuery(query);
+			while(result.next()) { 
+				motcle = result.getString(1);
+			}
+		}
+		catch(Exception e) {}
+		return motcle; 
+	}
 
 	public ArrayList<Jalon> getJalonProjet(int idProjet) {
 		ArrayList<Jalon> jl = new ArrayList<Jalon>();
@@ -160,7 +178,7 @@ public class ProjetController {
 				int year = cal.get(Calendar.YEAR);
 				String classeProjet = result.getString(3);
 				String sujetProjet = result.getString(4);
-				Projet p = new Projet(idProjet, sujetProjet, classeProjet, year, this.getTuteurProjet(idProjet), this.getEleveProjet(idProjet), this.getJalonProjet(idProjet));
+				Projet p = new Projet(idProjet, sujetProjet, classeProjet, year, this.getTuteurProjet(idProjet), this.getEleveProjet(idProjet), this.getJalonProjet(idProjet),this.getMotCleProjet(idProjet));
 
 				prj.add(p);
 			}

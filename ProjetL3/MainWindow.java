@@ -101,6 +101,7 @@ public class MainWindow
 	 * liste de projets
 	 */
 	public static ArrayList<Projet> m_listeProjet;
+	public static ArrayList<Projet> m_listeProjetRaw;
 	/**
 	 * liste de jalons
 	 */
@@ -133,6 +134,7 @@ public class MainWindow
 	private JMenuItem m_mntm_RechercheProjet;
 	private JMenuItem mntmEditerProgression;
 	private JLabel m_Label_NomDuProjet;
+	private JMenuItem m_MenuItem_Nouveau;
 
 
 	/**
@@ -481,17 +483,27 @@ public class MainWindow
 		ProjetController p = new ProjetController();
 		if(!Authentification.getIsEleve())
 		{
+			m_mntm_RendreRapport.setEnabled(false);
 			m_listeProjet = new ArrayList<Projet>();
 			for(Projet data : p.getListOfProjet(Authentification.getClasse()))
 			{
 				m_listeProjet.add(data);
 				addProject();
 			}
+			
 		}
 		else
 		{
 			m_menuItem_Noter.setEnabled(false);
 			m_mntm_RechercheProjet.setEnabled(false);
+			m_listeProjet = new ArrayList<Projet>();
+			m_MenuItem_AddJalons.setEnabled(false);
+			m_MenuItem_Nouveau.setEnabled(false);
+			for(Projet data : m_listeProjetRaw)
+			{
+				m_listeProjet.add(data);
+				addProject();
+			}
 		}
 		m_listeJalon = new ArrayList<Jalon>();
 		
@@ -619,7 +631,7 @@ public class MainWindow
 		if (connectedPerson instanceof Eleve)
 		{
 			
-			 m_listeProjet = new ProjetController().getProjetFromEleve(connectedPerson.getId());
+			 m_listeProjetRaw = new ProjetController().getProjetFromEleve(connectedPerson.getId());
 		}
 		
 	}
