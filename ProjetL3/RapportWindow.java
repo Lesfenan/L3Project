@@ -102,6 +102,7 @@ public class RapportWindow extends JFrame {
 			public void mousePressed(MouseEvent e) 
 			{
 				copieFichier(selectedJalon,selectedProjet,currentClasse);
+				dispose();
 			}
 		});
 		m_btn_Ok.setBounds(286, 51, 117, 29);
