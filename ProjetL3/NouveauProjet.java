@@ -232,7 +232,7 @@ public class NouveauProjet extends JDialog {
 			newProject.getMotsCles().add(data);
 		}
 		
-		newProject.setMotCleRaw(m_textArea_MotsCles.getText());
+		newProject.setMotCleRaw(m_textField_NomProjet.getText()+","+m_textArea_MotsCles.getText());
 
 		for(Jalon j : MainWindow.getM_listeJalon())
 		{

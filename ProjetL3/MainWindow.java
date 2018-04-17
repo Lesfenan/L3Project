@@ -787,6 +787,14 @@ public class MainWindow
 	{
 		 DefaultMutableTreeNode selectedNode = 
 			       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent(); 
+
+		   selectedJalon = root.getIndex(selectedNode);
+		   
+			if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1 || root.getIndex(selectedNode) < 0 || root.getIndex(selectedNode) > m_listeJalon.size() - 1)
+			{
+				return;
+			}
+		 
 		if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1 || root.getIndex(selectedNode) < 0 || root.getIndex(selectedNode) > m_listeJalon.size() - 1)
 		{
 			return;
@@ -807,6 +815,14 @@ public class MainWindow
 		
 		 DefaultMutableTreeNode selectedNode = 
 			       (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+		 
+		   selectedJalon = root.getIndex(selectedNode);
+		   
+			if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1 || root.getIndex(selectedNode) < 0 || root.getIndex(selectedNode) > m_listeJalon.size() - 1)
+			{
+				return;
+			}
+		 
 		 Jalon j = m_listeProjet.get(m_Table_Frise.getSelectedRow()).getCollectionJalons().get(root.getIndex(selectedNode));
 		 Projet p = m_listeProjet.get(m_Table_Frise.getSelectedRow());
 		ProgressionWindow prog = new ProgressionWindow(p,j);
