@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
@@ -100,22 +101,25 @@ public class RechercheProjetWindow extends JFrame {
 		m_label_Result.setBounds(37, 119, 130, 16);
 		contentPane.add(m_label_Result);
 		
-		JButton m_Button_Restaurer = new JButton("Restaurer");
-		m_Button_Restaurer.setBounds(0, 243, 140, 29);
-		contentPane.add(m_Button_Restaurer);
-		
 		JButton m_Button_VoirInformations = new JButton("Voir informations");
 		m_Button_VoirInformations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				Recherche test = new Recherche();
-				ArrayList<String> res = new ArrayList<String>();
-				res = test.rechercherProjetMotCle("c");
-				System.out.println(res.size());
+				String idString = m_Jlist_Result.getSelectedValue().toString().split(" - ")[2];
+				int id = Integer.parseInt(idString);
+				
+				for(Projet data : MainWindow.getM_listeProjet())
+				{
+					if(id == data.getId())
+					{
+						InformationWindow info = new InformationWindow(data);
+						info.setVisible(true);
+					}
+				}
 				
 			}
 		});
-		m_Button_VoirInformations.setBounds(0, 214, 145, 29);
+		m_Button_VoirInformations.setBounds(0, 243, 145, 29);
 		contentPane.add(m_Button_VoirInformations);
 		
 
@@ -127,19 +131,37 @@ public class RechercheProjetWindow extends JFrame {
 	 */
 	public void RechercheNom(String req)
 	{
-		
+		ArrayList<String> raw = new ArrayList<String>();
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		
 		for(String ele : SearchDB.rechercherProjetMotCle(req))
 		{
-			listModel.addElement(ele);
+			raw.add(ele);
 		}
 		
 		for(String ele : SearchDB.rechercherProjetMotCle(req))
 		{
-			listModel.addElement(ele);
+			raw.add(ele);
 		}
 		
+		
+		ArrayList<String> result = removeDuplicates(raw);
+		for(String ele : result)
+		{
+			listModel.addElement(ele);
+		}
 		m_Jlist_Result.setModel(listModel);
 	}
+	
+    private ArrayList<String> removeDuplicates(ArrayList<String> list) {
+        ArrayList<String> r = new ArrayList<>();
+        HashSet<String> set = new HashSet<>();
+        for (String item : list) {
+            if (!set.contains(item)) {
+                r.add(item);
+                set.add(item);
+            }
+        }
+        return r;
+    }
 }

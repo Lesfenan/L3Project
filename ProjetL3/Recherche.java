@@ -37,14 +37,16 @@ public class Recherche {
     public ArrayList<String> rechercherProjet(String r) {
         ArrayList<String> resultat = new ArrayList<String>();
         try {
-            String query = "SELECT sujet FROM Projet WHERE sujet LIKE '" + r + "%' ORDER BY sujet DESC LIMIT 0,20";
+            String query = "SELECT sujet, P.annee, P.ID FROM Projet WHERE sujet LIKE '" + r + "%' ORDER BY sujet DESC LIMIT 0,20";
             Statement state = this.connection.createStatement();
             
             ResultSet result = state.executeQuery(query);
 
             while (result.next()) {
                 String sujetProjet = result.getString(1);
-                resultat.add(sujetProjet); //TODO separer noms et prenoms
+                String AnneeProjet = result.getString(2);
+                String IdProjet = result.getString(3);
+                resultat.add(sujetProjet + " - " + AnneeProjet + " - " + IdProjet); //TODO separer noms et prenoms
             }
         }
         catch(Exception e) {}
@@ -54,14 +56,16 @@ public class Recherche {
     public ArrayList<String> rechercherProjetMotCle(String r) {
         ArrayList<String> resultat = new ArrayList<String>();
         try {
-            String query = "SELECT P.sujet FROM Projet P, MotCleProjet M WHERE M.motcle LIKE '" + r + "%' AND M.idProjet = P.id ORDER BY M.motcle ASC";
+            String query = "SELECT P.sujet, P.annee, P.ID FROM Projet P, MotCleProjet M WHERE M.motcle LIKE '" + r + "%' AND M.idProjet = P.id ORDER BY M.motcle ASC";
             Statement state = this.connection.createStatement();
             
             ResultSet result = state.executeQuery(query);
 
             while (result.next()) {
                 String sujetProjet = result.getString(1);
-                resultat.add(sujetProjet); //TODO separer noms et prenoms
+                String AnneeProjet = result.getString(2);
+                String IdProjet = result.getString(3);
+                resultat.add(sujetProjet + " - " + AnneeProjet + " - " + IdProjet);
             }
         }
         catch(Exception e) {}

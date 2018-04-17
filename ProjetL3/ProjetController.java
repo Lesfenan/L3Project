@@ -17,39 +17,42 @@ public class ProjetController {
 	 */
 
 	public Projet addProjetToDB(String sujet, String classe, Enseignant tuteur, ArrayList<Eleve> eleve ,ArrayList<String> motCle) {
-		Projet p = new Projet(-1,sujet,classe,Calendar.YEAR,tuteur,eleve,new ArrayList<Jalon>());
-		try {
-			java.util.Date d = new java.util.Date();
-			java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			String date = sdf.format(d);
+        Projet p = new Projet(-1,sujet,classe,Calendar.YEAR,tuteur,eleve,new ArrayList<Jalon>());
+            try {
+                java.util.Date d = new java.util.Date();
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                String date = sdf.format(d);
 
-			String insertProjet = "INSERT INTO Projet(annee, classe, sujet) VALUES ('" + date + "', '" + classe + "', '" + sujet + "');";
-			Statement state = this.connection.createStatement();
+                String insertProjet = "INSERT INTO Projet(annee, classe, sujet) VALUES ('" + date + "', '" + classe + "', '" + sujet + "');";
+                Statement state = this.connection.createStatement();
+                System.out.println("Projet insert");
+                state.executeUpdate(insertProjet);
 
-			state.executeUpdate(insertProjet);
+                Statement state2 = this.connection.createStatement();
+                ResultSet result = state2.executeQuery("SELECT MAX(id) FROM Projet");
+                result.next();
+                int idProjet = result.getInt(1);         
+                p.setId(idProjet);               
 
-			Statement state2 = this.connection.createStatement();
-			ResultSet result = state2.executeQuery("SELECT MAX(id) FROM Projet");
-			result.next();
-			int idProjet = result.getInt(1); 
-			p.setId(idProjet); 
+                String insertTuteur = "INSERT INTO TuteurProjet(idProjet, idEnseignant) VALUES ('" + p.getId() + "', '" + tuteur.getId() + "');";
+                
+                state.executeUpdate(insertTuteur);
+                System.out.println("tuteur insert");
+                for(int i = 0; i < eleve.size(); i++) {
+                    state.executeUpdate("INSERT INTO EleveProjet(idProjet, idEleve) VALUES ('" + p.getId() + "', '" + eleve.get(i).getId() + "');");
+                }
+                System.out.println("eleve insert");
 
-			String insertTuteur = "INSERT INTO TuteurProjet(idProjet, idEnseignant) VALUES ('" + p.getId() + "', '" + tuteur.getId() + "');";
-
-			state.executeUpdate(insertTuteur);
-
-			for(int i = 0; i < eleve.size(); i++) {
-				state.executeUpdate("INSERT INTO EleveProjet(idProjet, idEleve) VALUES ('" + p.getId() + "', '" + eleve.get(i).getId() + "');");
-			}
-
-			for(int i = 0; i < motCle.size(); i++) {
-				state.executeUpdate("INSERT INTO MotCleProjet(idProjet, motCle) VALUES ('" + p.getId() + "', '" + motCle.get(i) + "');");
-			}
-		}
-		catch(Exception e) {}
-		return p;
-	}
-
+                for(int i = 0; i < motCle.size(); i++) {
+                    state.executeUpdate("INSERT INTO MotCleProjet(idProjet, motCle) VALUES ('" + p.getId() + "', '" + motCle.get(i) + "');");
+                }
+                System.out.println("motcle insert");
+            }
+            catch(SQLException e) {
+            		System.out.println("---------------" + e.getMessage());
+            }
+        return p;
+    }
 	public ArrayList<Projet> getListOfProjet(String classe) {
 		ArrayList<Projet> resultat = new ArrayList<Projet>();
 		try {

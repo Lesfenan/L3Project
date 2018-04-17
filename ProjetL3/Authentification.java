@@ -68,6 +68,10 @@ public class Authentification extends JDialog
 	
 	private Personne connectedPerson;
 
+	private static Boolean isEleve;
+
+
+
 
 
 	/**
@@ -131,7 +135,7 @@ public class Authentification extends JDialog
 		
 		m_comboBox_Classe = new JComboBox();
 		m_comboBox_Classe.setBounds(20, 121, 83, 27);
-		m_comboBox_Classe.setVisible(false);
+		m_comboBox_Classe.setVisible(true);
 		contentPanel.add(m_comboBox_Classe);
 		m_comboBox_Classe.addItem("L3");
 		m_comboBox_Classe.addItem("M1");
@@ -142,7 +146,7 @@ public class Authentification extends JDialog
 		m_Radio_Eleve.setBounds(292, 108, 64, 23);
 		m_Radio_Eleve.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				m_comboBox_Classe.setVisible(false);
+				m_comboBox_Classe.setVisible(true);
 			}
 		});
 		contentPanel.add(m_Radio_Eleve);
@@ -199,9 +203,11 @@ public class Authentification extends JDialog
 		
 		if (m_Radio_Eleve.isSelected()){
 			connectedPerson =new LoginController().login(login, pw, "Eleve");
+			isEleve = true;
 		}
 		else {
 			connectedPerson = new LoginController().login(login, pw, "Enseignant");
+			isEleve = false;
 		}
 		
 		
@@ -235,4 +241,7 @@ public class Authentification extends JDialog
 		}
 	}
 
+	public static Boolean getIsEleve() {
+		return isEleve;
+	}
 }

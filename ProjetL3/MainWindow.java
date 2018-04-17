@@ -14,6 +14,8 @@ import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -130,6 +132,7 @@ public class MainWindow
 	private JMenuItem m_mntm_RendreRapport;
 	private JMenuItem m_mntm_RechercheProjet;
 	private JMenuItem mntmEditerProgression;
+	private JLabel m_Label_NomDuProjet;
 
 
 	/**
@@ -317,12 +320,14 @@ public class MainWindow
 		JMenu m_Menu_Edition = new JMenu("Edition");
 		m_MenuBar_Main.add(m_Menu_Edition);
 		
-		JMenuItem m_MenuItem_Parametre = new JMenuItem("Param\u00E8tre");
+		JMenuItem m_MenuItem_Parametre = new JMenuItem("Logout");
 		m_MenuItem_Parametre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) 
 			{
-				AfficherInformation();
+				MainWindow login = new MainWindow();
+				login.frame.setVisible(true);
+				frame.dispose();
 			}
 		});
 		m_Menu_Edition.add(m_MenuItem_Parametre);
@@ -372,8 +377,8 @@ public class MainWindow
 		m_SP.setAutoscrolls(true);
 
 		//
-		JLabel m_Label_NomDuProjet = new JLabel("Name");
-		m_Label_NomDuProjet.setBounds(0, 0, 46, 14);
+		m_Label_NomDuProjet = new JLabel("");
+		m_Label_NomDuProjet.setBounds(0, 0, 229, 14);
 		frame.getContentPane().add(m_Label_NomDuProjet);
 		
 		
@@ -473,15 +478,23 @@ public class MainWindow
 				m_ContextMenu_AddJalon.add(mntmEditerProgression);
 	///////START///////////
 		showAuth();
-		m_listeProjet = new ArrayList<Projet>();
 		ProjetController p = new ProjetController();
-		for(Projet data : p.getListOfProjet(Authentification.getClasse()))
+		if(!Authentification.getIsEleve())
 		{
-			m_listeProjet.add(data);
-			addProject();
+			m_listeProjet = new ArrayList<Projet>();
+			for(Projet data : p.getListOfProjet(Authentification.getClasse()))
+			{
+				m_listeProjet.add(data);
+				addProject();
+			}
+		}
+		else
+		{
+			m_menuItem_Noter.setEnabled(false);
+			m_mntm_RechercheProjet.setEnabled(false);
 		}
 		m_listeJalon = new ArrayList<Jalon>();
-
+		
 		try 
 		{
 			for(Jalon data : m_listeProjet.get(0).getCollectionJalons())
@@ -503,6 +516,7 @@ public class MainWindow
 				}
 				row++;
 				column = 1;
+				resizeColumnWidth(m_Table_Frise);
 			}
 		} catch (Exception e) 
 		{
@@ -533,7 +547,7 @@ public class MainWindow
 			Eleves += e.getPrenom() + " " + e.getNom() + ", ";
 		}
 		Eleves=Eleves.replaceAll(", $","");
-		row.add(Eleves);
+		row.add("Sujet : " + newProject.getSujet() + " - " + Eleves);
 		model.addRow(row);
 		//model.setValueAt(row, getM_listeProjet().size() - 1, 0);
 		
@@ -542,6 +556,8 @@ public class MainWindow
 		    Class<?> col_class = m_Table_Frise.getColumnClass(c);
 		    m_Table_Frise.setDefaultEditor(col_class, null);        // remove editor
 		}
+		
+		resizeColumnWidth(m_Table_Frise);
 	}
 	
 	
@@ -569,6 +585,7 @@ public class MainWindow
 		modelTree.reload();
 		
 		*/
+		resizeColumnWidth(m_Table_Frise);
 	}
 	
 	/**
@@ -599,10 +616,12 @@ public class MainWindow
 		login.setVisible(true);
 		Personne connectedPerson = login.getConnectedPerson();
 		
-		if (connectedPerson instanceof Eleve){
-			ArrayList<Projet> listProjets = new ProjetController().getProjetFromEleve(connectedPerson.getId());
-			System.out.println("C'est un eleve !!!");
+		if (connectedPerson instanceof Eleve)
+		{
+			
+			 m_listeProjet = new ProjetController().getProjetFromEleve(connectedPerson.getId());
 		}
+		
 	}
 	
 	
@@ -637,10 +656,10 @@ public class MainWindow
 	public void AfficherInformation()
 	{
 		m_Table_Frise.getSelectedRow();
-		System.out.println(m_Table_Frise.getSelectedRow());
-		System.out.println(m_Table_Frise.getSelectedColumn());
+		//System.out.println(m_Table_Frise.getSelectedRow());
+		//System.out.println(m_Table_Frise.getSelectedColumn());
 		TreePath[] paths = tree.getSelectionPaths();
-		System.out.println(paths[0].toString());
+		//System.out.println(paths[0].toString());
 	}
 	
 	public void AfficherInformationTree()
@@ -688,6 +707,7 @@ public class MainWindow
 		m_scrollPanel_Information.setVisible(true);
 		m_scrollPanel_InfoJalon.setVisible(false);
 		
+		
 		if(m_Table_Frise.getSelectedRow() < 0 || m_Table_Frise.getSelectedRow() > m_listeProjet.size() - 1)
 		{
 			return;
@@ -695,6 +715,7 @@ public class MainWindow
 		
 		Projet selected = m_listeProjet.get(m_Table_Frise.getSelectedRow());
 		
+		m_Label_NomDuProjet.setText(selected.getSujet());
 		m_lbl_NomProjet.setText("Nom du projet : " + selected.getSujet());
 		m_lbl_Enseignant.setText("Enseignant : " + selected.getEnseignant().getPrenom() + " " + selected.getEnseignant().getNom());
 		m_lbl_Annee.setText("Annee : " + selected.getAnnee());
@@ -780,6 +801,20 @@ public class MainWindow
 		prog.setVisible(true);
 	}
 	
+	public void resizeColumnWidth(JTable table) {
+	    final TableColumnModel columnModel = table.getColumnModel();
+	    for (int column = 0; column < table.getColumnCount(); column++) {
+	        int width = 15; // Min width
+	        for (int row = 0; row < table.getRowCount(); row++) {
+	            TableCellRenderer renderer = table.getCellRenderer(row, column);
+	            Component comp = table.prepareRenderer(renderer, row, column);
+	            width = Math.max(comp.getPreferredSize().width +1 , width);
+	        }
+	        if(width > 300)
+	            width=300;
+	        columnModel.getColumn(column).setPreferredWidth(width);
+	    }
+	}
 	
 }
 	

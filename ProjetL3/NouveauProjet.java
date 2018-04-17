@@ -137,11 +137,21 @@ public class NouveauProjet extends JDialog {
 			public void actionPerformed(ActionEvent e) 
 			{
 				String[] content = m_comboBox_AddEleve.getSelectedItem().toString().split(" ");
+				int ID =  Integer.parseInt(m_comboBox_AddEleve.getSelectedItem().toString().split(" | ")[m_comboBox_AddEleve.getSelectedItem().toString().split(" | ").length - 1]);
 				try 
 				{
 					String prenom = content[0];
 					String nom = content[1];
-					ListeEleves.add(new Eleve(prenom, nom));
+					
+					EleveController ec = new EleveController();
+					ArrayList<Eleve> searchEleve = ec.getListOfEleve();
+					for(Eleve ele : searchEleve)
+					{
+						if(ID == ele.getId())
+							ListeEleves.add(ele);
+					}
+					
+					
 					m_ComboBox_ListeEleves.addItem(prenom +" "+ nom);
 					m_ComboBox_ListeEleves.setSelectedItem(m_ComboBox_ListeEleves.getItemAt(m_ComboBox_ListeEleves.getItemCount() - 1));
 				} 
@@ -207,7 +217,7 @@ public class NouveauProjet extends JDialog {
 
 
 
-		Projet newProject = new Projet(new Random().nextInt(1000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves);
+		Projet newProject = new Projet(new Random().nextInt(10000), m_textField_NomProjet.getText(), Calendar.getInstance().get(Calendar.YEAR), ListeProvisoireEns.get(m_ComboBox_Tuteur.getSelectedIndex()), ListeEleves);
 		
 		for(Eleve e : ListeEleves)
 		{
@@ -256,7 +266,7 @@ public class NouveauProjet extends JDialog {
 		ArrayList<String> result = new ArrayList<String>();
 		for(Eleve i : listeEleves)
 		{
-			result.add(i.getPrenom() + " " + i.getNom());
+			result.add(i.getPrenom() + " " + i.getNom() + " | " + i.getId());
 		}
 		return result;
 		
